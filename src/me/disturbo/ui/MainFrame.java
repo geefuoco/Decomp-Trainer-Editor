@@ -55,18 +55,30 @@ public class MainFrame extends JFrame {
     public final void initProject(){
         JPanel contentPane = (JPanel) getContentPane();
         MainActivity.trainerIndexes = DataManager.indexTrainers();
+        System.out.println("Loaded trainer indexes");
         MainActivity.partyIndexes = DataManager.indexParties();
+        System.out.println("Loaded party indexes");
         MainActivity.trainerClasses = DataManager.loadTrainerClasses();
+        System.out.println("Loaded trainer classes");
         MainActivity.items = DataManager.loadItems();
+        System.out.println("Loaded items");
         MainActivity.moves = DataManager.loadMoves();
+        System.out.println("Loaded moves");
         MainActivity.species = DataManager.loadSpecies();
+        System.out.println("Loaded species");
         MainActivity.music = DataManager.loadMusic();
+        System.out.println("Loaded music");
         MainActivity.aiFlags = DataManager.loadAiFlags();
+        System.out.println("Loaded aiflags");
         MainActivity.picList = DataManager.loadTrainerPicsList();
+        System.out.println("Loaded trainer pic lists");
         MainActivity.picPaths = DataManager.loadTrainerPicsPaths();
+        System.out.println("Loaded trainer pic paths");
         createMenu(contentPane);
         createEditor(contentPane);
-        loadTrainerData(MainActivity.currentTrainer);
+        if (MainActivity.currentTrainer != null){
+            loadTrainerData(MainActivity.currentTrainer);
+        }
         setContentPane(contentPane);
     }
 
