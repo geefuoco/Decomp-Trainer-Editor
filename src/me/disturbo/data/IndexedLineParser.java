@@ -17,9 +17,9 @@ public interface IndexedLineParser<T> {
         int currentIndex = 0;
 
         FileReader fr = null; BufferedReader br = null;
+        String line = "";
         try {
             fr = new FileReader(file); br = new BufferedReader(fr);
-            String line;
             while((line = br.readLine()) != null && (currentIndex < nextIndex || nextIndex == -1)) {
                 line += System.lineSeparator();
                 if(currentIndex >= index) raw += line;
@@ -30,6 +30,7 @@ public interface IndexedLineParser<T> {
         }
         catch(IOException exception) {
             exception.printStackTrace();
+            System.out.println("Exception occured when reading line: " + line);
         }
         finally {
             try {

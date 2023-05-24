@@ -14,7 +14,11 @@ public class Party extends LinkedList<PartyMember> {
     }
 
     public static final String extractPartyName(String name){
-        return name.split("=")[1].replace("}", "");
+        try{
+            return name.split("=")[1].replace("}", "");
+        } catch(ArrayIndexOutOfBoundsException e){
+            return "NOT FOUND";
+        }
     }
 
     final String buildPartyName(){

@@ -14,11 +14,8 @@ import java.io.*;
 import java.util.*;
 
 public class DataManager {
-    /*
-    Some files were changed / moved from pokeemerald to pokeemeerald expansion
-    */
 
-    private final String include_constants = new StringBuilder()
+    private static final String include_constants = new StringBuilder()
                                                 .append(MainActivity.projectDirectory)
                                                 .append(File.separator)
                                                 .append("include")
@@ -27,7 +24,7 @@ public class DataManager {
                                                 .append(File.separator)
                                                 .toString();
 
-    private final String src_data_text = new StringBuilder()
+    private static final String src_data_text = new StringBuilder()
                                             .append(MainActivity.projectDirectory)
                                             .append(File.separator)
                                             .append("src")
@@ -43,13 +40,6 @@ public class DataManager {
         new StringBuilder()
             .append(src_data_text)
             .append("trainer_class_names.h")
-            .toString()
-    );
-
-    private static final File items = new File(
-        new StringBuilder()
-            .append(include_constants)
-            .append("items.h")
             .toString()
     );
 

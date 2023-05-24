@@ -23,17 +23,21 @@ public class PartyParser implements IndexedLineParser<Party> {
 
         String[] partyMembers = rawParty.split("},\\{");
         Party party = new Party(flags, size, name);
-        for(String member : partyMembers){
-            HashMap<String, String> values = PartyMember.templateValues();
-            int commaIndex = member.endsWith(",") ? 1 : 0;
-            member = member.substring(1, member.length() - commaIndex); //Remove first "." and last ","
-            String[] memberData = member.split(",\\.");
-            for(String field : memberData){
-                String key = field.substring(0, field.indexOf("="));
-                String value = field.substring(field.indexOf("=") + 1);
-                values.put(key, value);
+        try {
+            for(String member : partyMembers){
+                HashMap<String, String> values = PartyMember.templateValues();
+                int commaIndex = member.endsWith(",") ? 1 : 0;
+                member = member.substring(1, member.length() - commaIndex); //Remove first "." and last ","
+                String[] memberData = member.split(",\\.");
+                for(String field : memberData){
+                    String key = field.substring(0, field.indexOf("="));
+                    String value = field.substring(field.indexOf("=") + 1);
+                    values.put(key, value);
+                }
+                party.add(new PartyMember(values));
             }
-            party.add(new PartyMember(values));
+        } catch(Exception e){
+            System.out.println("Error when processing party: " + rawParty);
         }
         return party;
     }
