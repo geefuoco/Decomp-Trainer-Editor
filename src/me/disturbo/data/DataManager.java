@@ -15,112 +15,198 @@ import java.util.*;
 
 public class DataManager {
     /*
-            COMMENTS PENDING
+    Some files were changed / moved from pokeemerald to pokeemeerald expansion
     */
 
-    public static final LinkedHashMap<String, TrainerClass> loadTrainerClasses(){
-        File trainerClasses = new File(MainActivity.projectDirectory + File.separator + "src"
-                + File.separator + "data" + File.separator + "text" + File.separator + "trainer_class_names.h");
+    private final String include_constants = new StringBuilder()
+                                                .append(MainActivity.projectDirectory)
+                                                .append(File.separator)
+                                                .append("include")
+                                                .append(File.separator)
+                                                .append("constants")
+                                                .append(File.separator)
+                                                .toString();
 
+    private final String src_data_text = new StringBuilder()
+                                            .append(MainActivity.projectDirectory)
+                                            .append(File.separator)
+                                            .append("src")
+                                            .append(File.separator)
+                                            .append("data")
+                                            .append(File.separator)
+                                            .append("text")
+                                            .append(File.separator)
+                                            .toString();
+
+
+    private static final File trainerClasses = new File(
+        new StringBuilder()
+            .append(src_data_text)
+            .append("trainer_class_names.h")
+            .toString()
+    );
+
+    private static final File items = new File(
+        new StringBuilder()
+            .append(include_constants)
+            .append("items.h")
+            .toString()
+    );
+
+    private static final File items = new File(
+        new StringBuilder()
+            .append(include_constants)
+            .append("items.h")
+            .toString()
+    );
+
+    private static final File moves = new File(
+        new StringBuilder()
+            .append(src_data_text)
+            .append("move_names.h")
+            .toString()
+    );
+
+    private static final File species = new File(
+        new StringBuilder()
+            .append(src_data_text)
+            .append("species_names.h")
+            .toString()
+    );
+
+    private static final File music = new File(
+        new StringBuilder()
+            .append(include_constants)
+            .append("trainers.h")
+            .toString()
+    );
+
+    private static final File aiFlags = new File(
+        new StringBuilder()
+            .append(include_constants)
+            .append("battle_ai.h")
+            .toString()
+    );
+
+    private static final File picList = new File(
+        new StringBuilder()
+            .append(include_constants)
+            .append("trainers.h")
+            .toString()
+    );
+
+    private static final File picsPaths = new File(
+        new StringBuilder()
+            .append(MainActivity.projectDirectory)  
+            .append(File.separator)  
+            .append("src")
+            .append(File.separator)
+            .append("data")
+            .append(File.separator)
+            .append("graphics")
+            .append(File.separator)
+            .append("trainers.h")
+            .toString()
+    );
+
+    private static final File picTable = new File(
+        new StringBuilder()
+            .append(MainActivity.projectDirectory)  
+            .append(File.separator)  
+            .append("src")
+            .append(File.separator)
+            .append("data")
+            .append(File.separator)
+            .append("trainer_graphics")
+            .append(File.separator)
+            .append("front_pic_tables.h")
+            .toString()
+    );
+
+    private static final File trainers = new File(
+        new StringBuilder()
+            .append(MainActivity.projectDirectory)
+            .append(File.separator)
+            .append("src")
+            .append(File.separator)
+            .append("data")
+            .append(File.separator)
+            .append("trainers.h")
+            .toString()
+    );
+
+    private static final File parties = new File(
+        new StringBuilder()
+            .append(MainActivity.projectDirectory)
+            .append(File.separator)
+            .append("src")
+            .append(File.separator)
+            .append("data")
+            .append(File.separator)
+            .append("trainer_parties.h")
+            .toString()
+    );
+
+    public static final LinkedHashMap<String, TrainerClass> loadTrainerClasses(){
         return (new TrainerClassesParser()).parse(trainerClasses, new LinkedHashMap<>());
     }
 
     public static final LinkedList<String> loadItems(){
-        File items = new File(MainActivity.projectDirectory
-                + File.separator + "include" + File.separator + "constants" + File.separator + "items.h");
-
         return (new ItemsParser()).parse(items, new LinkedList<>());
     }
 
     public static final LinkedHashMap<String, String> loadMoves(){
-        File moves = new File(MainActivity.projectDirectory + File.separator + "src"
-                + File.separator + "data" + File.separator + "text" + File.separator + "move_names.h");
-
         return (new MovesParser()).parse(moves, new LinkedHashMap<>());
     }
 
     public static final LinkedHashMap<String, String> loadSpecies(){
-        File species = new File(MainActivity.projectDirectory + File.separator + "src"
-                + File.separator + "data" + File.separator + "text" + File.separator + "species_names.h");
-
         return (new SpeciesParser()).parse(species, new LinkedHashMap<>());
     }
 
-    public static final LinkedList<String> loadMusic(){
-        File music = new File(MainActivity.projectDirectory + File.separator + "include"
-                + File.separator + "constants" + File.separator + "trainers.h");
 
+    public static final LinkedList<String> loadMusic(){
         return (new MusicParser()).parse(music, new LinkedList<>());
     }
 
     public static final LinkedList<String> loadAiFlags(){
-        File aiFlags = new File(MainActivity.projectDirectory + File.separator + "include"
-                + File.separator + "constants" + File.separator + "battle_ai.h");
-
         return (new AiFlagsParser()).parse(aiFlags, new LinkedList<>());
     }
 
     public static final LinkedList<String> loadTrainerPicsList(){
-        File picList = new File(MainActivity.projectDirectory + File.separator + "include"
-                + File.separator + "constants" + File.separator + "trainers.h");
-
         return (new TrainerPicsListParser()).parse(picList, new LinkedList<>());
     }
 
     public static final LinkedHashMap<String, String> loadTrainerPicsPaths(){
-        File picsPaths = new File(MainActivity.projectDirectory + File.separator + "src"
-                + File.separator + "data" + File.separator + "graphics" + File.separator + "trainers.h");
         LinkedHashMap<String, String> picTable = loadTrainerPicTable();
-
         return (new TrainerPicsPathsParser(picTable)).parse(picsPaths, new LinkedHashMap<>());
     }
 
     public static final LinkedHashMap<String, String> loadTrainerPicTable(){
-        File picTable = new File(MainActivity.projectDirectory + File.separator + "src"
-                + File.separator + "data" + File.separator + "trainer_graphics" + File.separator + "front_pic_tables.h");
-
         return (new TrainerPicTableParser()).parse(picTable, new LinkedHashMap<>());
     }
 
     public static final LinkedHashMap<String, Integer> indexTrainers(){
-        File trainers = new File(MainActivity.projectDirectory
-                + File.separator + "src" + File.separator + "data" + File.separator + "trainers.h");
-
         return (new TrainerIndexer()).parse(trainers, new LinkedHashMap<>());
     }
     
     public static final Trainer loadTrainer(String name){
-        File trainers = new File(MainActivity.projectDirectory
-                + File.separator + "src" + File.separator + "data" + File.separator + "trainers.h");
-
         return (new TrainerParser()).parser(trainers, MainActivity.trainerIndexes, name);
     }
 
     public static final void saveTrainers(LinkedList<Trainer> orderedTrainers){
-        File trainers = new File(MainActivity.projectDirectory
-                + File.separator + "src" + File.separator + "data" + File.separator + "trainers.h");
-
         (new TrainersComposer()).compose(trainers, orderedTrainers, MainActivity.trainerIndexes);
     }
 
     public static final LinkedHashMap<String, Integer> indexParties(){
-        File parties = new File(MainActivity.projectDirectory
-                + File.separator + "src" + File.separator + "data" + File.separator + "trainer_parties.h");
 
         return (new PartyIndexer()).parse(parties, new LinkedHashMap<>());
     }
 
     public static final Party loadParty(String flags, String size, String name){
-        File parties = new File(MainActivity.projectDirectory
-                + File.separator + "src" + File.separator + "data" + File.separator + "trainer_parties.h");
-
         return (new PartyParser(flags, size)).parser(parties, MainActivity.partyIndexes, name);
     }
 
     public static final void saveParties(LinkedList<Party> orderedParties){
-        File parties = new File(MainActivity.projectDirectory
-                + File.separator + "src" + File.separator + "data" + File.separator + "trainer_parties.h");
-
         (new PartiesComposer()).compose(parties, orderedParties, MainActivity.partyIndexes);
     }
 }
