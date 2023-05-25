@@ -20,7 +20,7 @@ public class Trainer {
     */
 
 
-    public static final String[] fields = {"partyFlags", "trainerClass", "encounterMusic_gender", "trainerPic", "trainerName",
+    public static final String[] fields = {"trainerClass", "encounterMusic_gender", "trainerPic", "trainerName",
                                            "items", "doubleBattle", "aiFlags", "party"};
 
 
@@ -124,7 +124,6 @@ public class Trainer {
     public final String buildTrainerStruct(){
         String struct = "    [" + name + "] =" + System.lineSeparator();
         struct += "    {" + System.lineSeparator();
-        struct += "        .partyFlags = " + party.getPartyFlags() + "," + System.lineSeparator();
         struct += "        .trainerClass = " + trainerClass + "," + System.lineSeparator();
         struct += "        .encounterMusic_gender = " + buildMusicGender() + "," + System.lineSeparator();
         struct += "        .trainerPic = " + trainerPic + "," + System.lineSeparator();
