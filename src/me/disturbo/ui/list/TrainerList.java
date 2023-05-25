@@ -17,7 +17,6 @@ public class TrainerList extends JList<String> {
         setListData(trainerNames);
         setSelectedIndex(0);
         MainActivity.currentTrainer = getSelectedValue();
-        System.out.println(MainActivity.currentTrainer);
         MainActivity.loadedTrainers.put(MainActivity.currentTrainer, DataManager.loadTrainer(MainActivity.currentTrainer));
 
         addListSelectionListener(event -> {
