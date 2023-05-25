@@ -1,7 +1,45 @@
-# Decomp Trainer Editor
+# Decomp Trainer Editor+
 DTE allows you to modify every trainer's properties (and there are around 850 of them), as well as their Pokémon parties dynamically. What does this mean? You can add new items, Pokémon or moves to your repo and the tool shouldn't have any problem loading them, as long as you keep the few things that the tool uses as a base for loading everything. This will be further explained later.
 
+This tool has been modified to support pokeemerald-expansion tested on [this](https://github.com/rh-hideout/pokeemerald-expansion/tree/0ac203f2e50de8ae24d8e8e603b60b469f8be007) commit.
+
+# How to compile / run
+Java is needed to run the program (tested using openjdk 11.0.19)
+
+## Compile
+```
+git clone https://github.com/geefuoco/Decomp-Trainer-Editor 
+cd Decomp-Trainer-Editor
+mkdir build
+```
+
+With Python3
+
+```
+./build.py
+```
+
+Without Python3
+
+```
+javac -sourcepath ./src -d ./build ./src/me/disturbo/main/MainActivity.java
+jar cmf ./src/META-INF/MANIFEST.MF ./build/decomp-trainer-editor.jar
+```
+
+## Run
+```
+java -jar decomp-trainer-editor.jar
+```
+
+
+
+
 ## Functionalities
+
+***NOTE***
+Currently Z-Moves are not supported in the program
+
+
 ![Trainer list](https://i.imgur.com/mg6ORE4.png)
 
 Trainer searching: Shown trainers are filtered from text in the field below the list
