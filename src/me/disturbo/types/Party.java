@@ -15,10 +15,11 @@ public class Party extends LinkedList<PartyMember> {
 
     public static final String extractPartyName(String name){
         try {
-            return name.split("=")[1].replace("}", "");
+            return name.substring(name.indexOf("(")+1, name.length()-1);
         } catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Error when trying to extract party name: " + name);
-            return name;
+            e.printStackTrace();
+            return null;
         }
     }
 
