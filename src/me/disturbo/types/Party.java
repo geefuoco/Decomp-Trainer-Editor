@@ -14,15 +14,36 @@ public class Party extends LinkedList<PartyMember> {
     }
 
     public static final String extractPartyName(String name){
-        try{
+        try {
+            return name.substring(name.indexOf("(")+1, name.length()-1);
+        } catch(Exception e){
+            System.out.println("Error when trying to extract party name: " + name);
+            System.out.println("WARNING: Trying to parse with old format.");
+            //If this still doesn't work, there is a error in the pokeemerald code and we should terminate here
             return name.split("=")[1].replace("}", "");
-        } catch(ArrayIndexOutOfBoundsException e){
-            return "NOT FOUND";
         }
     }
 
     final String buildPartyName(){
-        return "{." + getPartyType().substring("TrainerMon".length()) + " = " + name + "}";
+        String partyType = getPartyType().substring("TrainerMon".length());
+        String result;
+        switch (partyType) {
+            case "NoItemDefaultMoves":
+                result = "NO_ITEM_DEFAULT_MOVES";
+                break;
+            case "NoItemCustomMoves":
+                result = "NO_ITEM_CUSTOM_MOVES";
+                break;
+            case "ItemDefaultMoves":
+                result = "ITEM_DEFAULT_MOVES";
+                break;
+            case "ItemCustomMoves":
+                result = "ITEM_CUSTOM_MOVES";
+                break;
+            default:
+                result = "EVERYTHING_CUSTOMIZED";
+        }
+        return result + "(" + name + ")";
     }
 
     public final String getPartyType(){

@@ -159,8 +159,12 @@ public class TrainerPanel extends JPanel {
         musicInput.setSelectedItem(trainer.music);
         genderPanel.doSelection(trainer.gender);
         for(int index = 0; index < MainActivity.ITEMS_MAX; index++){
-            String item = trainer.items.size() > 0 ? trainer.items.get(index) : MainActivity.items.get(0);
-            itemsPanel.setSelectedItem(index, item);
+            try{
+                String item = trainer.items.size() > 0 && index < trainer.items.size() ? trainer.items.get(index) : MainActivity.items.get(0);
+                itemsPanel.setSelectedItem(index, item);
+            } catch(IndexOutOfBoundsException e){
+                System.out.println("Index out of bounds at index: " + index);
+            }
         }
     }
 
