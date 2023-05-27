@@ -192,8 +192,8 @@ public class DataManager {
         return (new PartyIndexer()).parse(parties, new LinkedHashMap<>());
     }
 
-    public static final Party loadParty(String flags, String size, String name){
-        return (new PartyParser(flags, size)).parser(parties, MainActivity.partyIndexes, name);
+    public static final Party loadParty(String name){
+        return (new PartyParser()).parser(parties, MainActivity.partyIndexes, name);
     }
 
     public static final void saveParties(LinkedList<Party> orderedParties){

@@ -7,25 +7,26 @@ import me.disturbo.types.PartyMember;
 import java.util.HashMap;
 
 public class PartyParser implements IndexedLineParser<Party> {
-    private final String flags, size;
 
-    public PartyParser(String flags, String size){
-        this.flags = flags;
-        this.size = size;
-    }
 
     @Override
     public Party parseObject(String name, String rawParty) {
-        String partyType = rawParty.substring(rawParty.indexOf("TrainerMon"), rawParty.indexOf("Moves") + "Moves".length());
+        String rawPartyTypeString = rawParty.substring(rawParty.indexOf("TrainerMon"));
+        String partyType;
+        if(rawPartyTypeString.contains("Customized")){
+            partyType = "Customized";
+        } else {
+            partyType = rawParty.substring(rawParty.indexOf("TrainerMon"), rawParty.indexOf("Moves") + "Moves".length());
+        }
         String partyDeclaration = "staticconststruct" + partyType + name + "[]={{";
         rawParty = rawParty.replaceAll(System.lineSeparator(), "").replaceAll("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)", "");
         rawParty = rawParty.substring(partyDeclaration.length(), rawParty.length() - 3);
 
         String[] partyMembers = rawParty.split("},\\{");
-        Party party = new Party(flags, size, name);
+        Party party = new Party(name);
         try {
             for(String member : partyMembers){
-                HashMap<String, String> values = PartyMember.templateValues();
+                HashMap<String, String> values = new HashMap(); 
                 int commaIndex = member.endsWith(",") ? 1 : 0;
                 member = member.substring(1, member.length() - commaIndex); //Remove first "." and last ","
                 String[] memberData = member.split(",\\.");

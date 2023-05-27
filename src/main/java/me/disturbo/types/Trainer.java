@@ -41,10 +41,8 @@ public class Trainer {
         items = extractItems(values.get("items"));
         doubleBattle = Boolean.parseBoolean(values.get("doubleBattle"));
         aiFlags = extractAiFlags(values.get("aiFlags"));
-        String partyFlags = values.get("partyFlags"),
-               partySize = values.get("partySize"),
-               partyName = Party.extractPartyName(values.get("party"));
-        party = DataManager.loadParty(partyFlags, partySize, partyName);
+        String partyName = Party.extractPartyName(values.get("party"));
+        party = DataManager.loadParty(partyName);
     }
 
     public static final HashMap<String, String> templateValues(){

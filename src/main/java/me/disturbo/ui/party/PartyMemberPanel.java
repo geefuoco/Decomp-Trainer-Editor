@@ -22,7 +22,12 @@ public class PartyMemberPanel extends JPanel{
 
     private final MainFrame frame;
 
-    private JTextField iv;
+    private JTextField hpIv;
+    private JTextField atkIv;
+    private JTextField defIv;
+    private JTextField spAtkIv;
+    private JTextField spDefIv;
+    private JTextField spdIv;
     private JTextField level;
     private ComboBoxFiltered species;
     private ComboBoxFiltered heldItem;
@@ -74,9 +79,29 @@ public class PartyMemberPanel extends JPanel{
         cons.gridy++; panel.add(Box.createVerticalStrut(5), cons);
 
 
-        iv = new JTextField();
-        iv.setDocument(new TextFieldLimiter(-1, 256));
-        cons.gridy++; panel.add(iv, cons);
+        hpIv = new JTextField();
+        hpIv.setDocument(new TextFieldLimiter(-1, 32));
+        cons.gridy++; panel.add(hpIv, cons);
+
+        atkIv = new JTextField();
+        atkIv.setDocument(new TextFieldLimiter(-1, 32));
+        cons.gridy++; panel.add(atkIv, cons);
+
+        defIv = new JTextField();
+        defIv.setDocument(new TextFieldLimiter(-1, 32));
+        cons.gridy++; panel.add(defIv, cons);
+
+        spAtkIv = new JTextField();
+        spAtkIv.setDocument(new TextFieldLimiter(-1, 32));
+        cons.gridy++; panel.add(spAtkIv, cons);
+
+        spDefIv = new JTextField();
+        spDefIv.setDocument(new TextFieldLimiter(-1, 32));
+        cons.gridy++; panel.add(spDefIv, cons);
+
+        spdIv = new JTextField();
+        spdIv.setDocument(new TextFieldLimiter(-1, 32));
+        cons.gridy++; panel.add(spdIv, cons);
 
         cons.gridy++; panel.add(Box.createVerticalStrut(10), cons);
     }
@@ -136,33 +161,54 @@ public class PartyMemberPanel extends JPanel{
         movesPanel = new MovesPanel();
         cons.gridy++; panel.add(movesPanel, cons);
     }
+    
+    private final String[] getIVsFromText() {
+        return new String[] {
+            hpIv.getText(),
+            atkIv.getText(),
+            defIv.getText(),
+            spAtkIv.getText(),
+            spDefIv.getText(),
+            spdIv.getText()
+        };
+    }
 
     public final String getSpecies(){
         return ((JTextField) species.getEditor().getEditorComponent()).getText();
     }
 
     public final void loadPartyMemberData(PartyMember member){
-        iv.setText(member.iv);
+        hpIv.setText(member.ivs[0]);
+        atkIv.setText(member.ivs[1]);
+        defIv.setText(member.ivs[2]);
+        spAtkIv.setText(member.ivs[3]);
+        spDefIv.setText(member.ivs[4]);
+        spdIv.setText(member.ivs[5]);
         level.setText(member.level);
         species.setSelectedItem(member.species);
         heldItem.setSelectedItem(!member.heldItem.equals("") ? member.heldItem : MainActivity.items.get(0));
-        for(int moveIndex = 0, movesSize = member.moves.size(); moveIndex < MainActivity.MOVES_MAX; moveIndex++){
-            if(moveIndex < movesSize) movesPanel.setMove(moveIndex, MainActivity.moves.get(member.moves.get(moveIndex)));
-            else movesPanel.setMove(moveIndex, MainActivity.moves.values().toArray(new String[0])[0]);
+        for(int i= 0, movesSize = member.moves.length; i< MainActivity.MOVES_MAX; i++){
+            if(i < movesSize) {
+                movesPanel.setMove(i, MainActivity.moves.get(member.moves[i]));
+            }
+            else {
+                movesPanel.setMove(i, MainActivity.moves.values().toArray(new String[0])[0]);
+            }
         }
     }
 
+
     public final void savePartyMemberData(PartyMember member){
-        member.iv = iv.getText();
+        member.ivs = getIVsFromText();
         member.level = level.getText();
-        member.species = this.species.getSelectedItem().toString();
+        member.species = species.getSelectedItem().toString();
         member.heldItem = heldItem.getSelectedItem().toString();
         LinkedList<String> keys = new LinkedList<>(MainActivity.moves.keySet());
         LinkedList<String> values = new LinkedList<>(MainActivity.moves.values());
-        ArrayList<String> moves = new ArrayList<>();
-        for(int moveIndex = 0; moveIndex < MainActivity.MOVES_MAX; moveIndex++){
-            int indexOfMove = values.indexOf(movesPanel.getMove(moveIndex));
-            moves.add(keys.get(indexOfMove));
+        String[] moves = new String[4];
+        for(int i = 0; i < MainActivity.MOVES_MAX; i++){
+            int indexOfMove = values.indexOf(movesPanel.getMove(i));
+            moves[i] = keys.get(indexOfMove);
         }
         member.moves = moves;
     }
