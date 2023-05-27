@@ -78,6 +78,9 @@ public class PartyMember {
     }
 
     public static final String[] extractMoves(String moves){
+        if (moves == null){
+            return null;
+        }
         if(moves.length() == 0) return new String[4];
         return moves.substring(1, moves.length() - 1).split(",");
     }
