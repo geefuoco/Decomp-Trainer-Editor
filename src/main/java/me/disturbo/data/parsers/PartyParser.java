@@ -5,41 +5,50 @@ import me.disturbo.types.Party;
 import me.disturbo.types.PartyMember;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class PartyParser implements IndexedLineParser<Party> {
 
+    private final int END_OFFSET = 3;
 
-    @Override
-    public Party parseObject(String name, String rawParty) {
-        String rawPartyTypeString = rawParty.substring(rawParty.indexOf("TrainerMon"));
+    protected ArrayList<HashMap<String, String>> parseIntoMap(String name, String rawParty) {
         String partyType;
-        if(rawPartyTypeString.contains("Customized")){
-            partyType = "Customized";
+        if (rawParty.contains("Customized")) {
+            partyType = "TrainerMonCustomized";
         } else {
-            partyType = rawParty.substring(rawParty.indexOf("TrainerMon"), rawParty.indexOf("Moves") + "Moves".length());
+            partyType = rawParty.substring(rawParty.indexOf("TrainerMon"),
+                    rawParty.indexOf("Moves") + "Moves".length());
         }
         String partyDeclaration = "staticconststruct" + partyType + name + "[]={{";
-        rawParty = rawParty.replaceAll(System.lineSeparator(), "").replaceAll("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)", "");
-        rawParty = rawParty.substring(partyDeclaration.length(), rawParty.length() - 3);
+        rawParty = rawParty.replaceAll(System.lineSeparator(), "").replaceAll("\\s+", "");
+        rawParty = rawParty.substring(partyDeclaration.length(), rawParty.length() - END_OFFSET);
 
-        String[] partyMembers = rawParty.split("},\\{");
-        Party party = new Party(name);
+        String[] partyMembers = rawParty.split("},\\{\\.");
+        ArrayList<HashMap<String, String>> partyMembersList = new ArrayList();
         try {
-            for(String member : partyMembers){
-                HashMap<String, String> values = new HashMap(); 
+            for (String member : partyMembers) {
+                HashMap<String, String> values = new HashMap();
                 int commaIndex = member.endsWith(",") ? 1 : 0;
-                member = member.substring(1, member.length() - commaIndex); //Remove first "." and last ","
+                member = member.substring(0, member.length() - commaIndex);
                 String[] memberData = member.split(",\\.");
-                for(String field : memberData){
+                for (String field : memberData) {
                     String key = field.substring(0, field.indexOf("="));
                     String value = field.substring(field.indexOf("=") + 1);
                     values.put(key, value);
                 }
-                party.add(new PartyMember(values));
+                partyMembersList.add(values);
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error when processing party: " + rawParty);
         }
+        return partyMembersList;
+    }
+
+    @Override
+    public Party parseObject(String name, String rawParty) {
+        Party party = new Party(name);
+        ArrayList<HashMap<String, String>> partyMembersList = parseIntoMap(name, rawParty);
+        partyMembersList.forEach(values -> party.add(new PartyMember(values)));
         return party;
     }
 }

@@ -37,9 +37,6 @@ public class PartyMemberStructTest {
         partyMemberStruct.addShiny(shiny);
 
         String finalStr = partyMemberStruct.build();
-        System.out.println("---------ACTUAL----------");
-        System.out.println(finalStr);
-
         String expectedString = new StringBuilder()
             .append("{")
             .append(System.lineSeparator())
@@ -51,7 +48,7 @@ public class PartyMemberStructTest {
             .append(System.lineSeparator())
             .append("    .friendship = 100,")
             .append(System.lineSeparator())
-            .append("    .gender =  TRAINER_MON_MALE,")
+            .append("    .gender = TRAINER_MON_MALE,")
             .append(System.lineSeparator())
             .append("    .heldItem = ITEM_TOXIC_ORB,")
             .append(System.lineSeparator())
@@ -71,11 +68,17 @@ public class PartyMemberStructTest {
             .append(System.lineSeparator())
             .append("}")
             .toString();
+        try {
+            assert finalStr == expectedString;
+            System.out.println("All Tests Passed");
+        } catch(AssertionError e) {
+            System.out.println("---------ACTUAL----------");
+            System.out.println(finalStr);
 
-        System.out.println("---------EXPECTED----------");
-        System.out.println(expectedString);
-        System.out.println("---------EQUAL-------------");
-        System.out.println(finalStr == expectedString);
+
+            System.out.println("---------EXPECTED----------");
+            System.out.println(expectedString);
+        }
         
     }
 

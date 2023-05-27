@@ -1,5 +1,8 @@
 ./src/test/java/me/disturbo/main/TestMain.java
+./src/test/java/me/disturbo/types/PartyTest.java
 ./src/test/java/me/disturbo/types/PartyMemberStructTest.java
+./src/test/java/me/disturbo/types/PartyMemberTest.java
+./src/test/java/me/disturbo/data/parsers/PartyParserTest.java
 ./src/main/java/me/disturbo/ui/ai/FlagPanel.java
 ./src/main/java/me/disturbo/ui/ai/AiFlagsPanel.java
 ./src/main/java/me/disturbo/ui/trainer/TrainerPicPanel.java

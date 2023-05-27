@@ -64,9 +64,9 @@ public class PartyMember {
             evs = evs.substring(evs.indexOf("TRAINER_PARTY_EVS("), evs.length()-1);
             this.evs = evs.split(",");
         }
-        level = values.getOrDefault("lvl", "5");
-        species = values.getOrDefault("species", MainActivity.species.get(0));
-        heldItem = values.getOrDefault("heldItem", MainActivity.items.get(0));
+        level = values.get("lvl");
+        species = values.get("species");
+        heldItem = values.get("heldItem");
         moves = extractMoves(values.get("moves"));
         ability = values.get("ability");
         nature = values.get("nature");
