@@ -29,7 +29,7 @@ public class PartyMemberStruct {
                 finalMoves += ", ";
             } 
         }
-        return INDENT + ".moves" + OPEN_BRACKET + finalMoves + CLOSE_BRACKET;
+        return INDENT + ".moves = " + OPEN_BRACKET + finalMoves + CLOSE_BRACKET;
     }
 
     private final String buildIVs(String[] ivs){
@@ -40,7 +40,7 @@ public class PartyMemberStruct {
                 finalIvs += ", ";
             }
         }
-        return INDENT + ".iv" + "TRAINER_PARTY_IVS(" + finalIvs + ")"; 
+        return INDENT + ".iv = " + "TRAINER_PARTY_IVS(" + finalIvs + ")"; 
     }
 
     private final String buildEVs(String[] evs){
@@ -51,15 +51,15 @@ public class PartyMemberStruct {
                 finalEvs += ", ";
             }
         }
-        return INDENT + ".ev" + "TRAINER_PARTY_EVS(" + finalEvs + ")";
+        return INDENT + ".ev = " + "TRAINER_PARTY_EVS(" + finalEvs + ")";
     }
 
     private final String buildNickname(String nickname){
-        return INDENT + ".nickname" + "COMPOUND_STRING(" + nickname + ")";
+        return INDENT + ".nickname = " + "COMPOUND_STRING(\"" + nickname + "\")";
     }
 
     private final String buildNature(String nature){
-        return INDENT + ".isShiny" + "TRAINER_PARTY_NATURE(" + nature + ")";
+        return INDENT + ".nature = " + "TRAINER_PARTY_NATURE(" + nature + ")";
     }
 
 
