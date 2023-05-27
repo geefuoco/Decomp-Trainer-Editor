@@ -3,7 +3,7 @@ import subprocess
 import os
 import shutil
 
-def compile_java_project(path: str) -> bool:
+def compile_java_project() -> bool:
     """
     Compile the java project into the build directory of the current 
 
@@ -20,17 +20,17 @@ def compile_java_project(path: str) -> bool:
     assert os.path.exists("./src"), "Not in the root directory of the project. Could not find src folder"
     assert os.path.exists("./build"), "./build directory does not exist"
     
+    run_str = "find -name '*.java' > sources.txt"
 
     try:
         shutil.rmtree("./build")
         os.mkdir("./build")
+        subprocess.run([run_str], shell=True)
         subprocess.run([
             "javac",
-            "-sourcepath",
-            "./src",
             "-d",
             "./build",
-            path
+            "@sources.txt"
         ])
 
         print("Java project compiled")
@@ -76,7 +76,7 @@ def compile_project_into_jar(path: str, jar_name: str) -> bool:
 
 if __name__ == "__main__":
     try:
-        if compile_java_project("./src/me/disturbo/main/MainActivity.java"):
+        if compile_java_project():
             compile_project_into_jar("../src/META-INF/MANIFEST.MF", "decomp-trainer-editor.jar")
         else:
             print("Compiling project failed.")
