@@ -23,13 +23,13 @@ public class PartyParser implements IndexedLineParser<Party> {
         rawParty = rawParty.replaceAll(System.lineSeparator(), "").replaceAll("\\s+", "");
         rawParty = rawParty.substring(partyDeclaration.length(), rawParty.length() - END_OFFSET);
 
-        String[] partyMembers = rawParty.split("},\\{\\.");
-        ArrayList<HashMap<String, String>> partyMembersList = new ArrayList();
+        String[] partyMembers = rawParty.split("},\\{");
+        ArrayList<HashMap<String, String>> partyMembersList = new ArrayList<>();
         try {
             for (String member : partyMembers) {
-                HashMap<String, String> values = new HashMap();
+                HashMap<String, String> values = new HashMap<>();
                 int commaIndex = member.endsWith(",") ? 1 : 0;
-                member = member.substring(0, member.length() - commaIndex);
+                member = member.substring(1, member.length() - commaIndex);
                 String[] memberData = member.split(",\\.");
                 for (String field : memberData) {
                     String key = field.substring(0, field.indexOf("="));
