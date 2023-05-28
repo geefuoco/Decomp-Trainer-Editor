@@ -36,6 +36,16 @@ application {
     mainClass = 'me.disturbo.main.MainActivity'
 }
 
+test {
+
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+        showStandardStreams true
+    }
+
+}
+
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
