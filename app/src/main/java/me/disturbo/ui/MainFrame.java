@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame(){
         setTitle("Decomp Trainer Editor");
-        setSize(850, 550);
+        setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initUIStyle();
         initNoProject();
@@ -62,8 +62,9 @@ public class MainFrame extends JFrame {
         MainActivity.species = DataManager.loadSpecies();
         MainActivity.music = DataManager.loadMusic();
         MainActivity.aiFlags = DataManager.loadAiFlags();
-        MainActivity.picList = DataManager.loadTrainerPicsList();
-        MainActivity.picPaths = DataManager.loadTrainerPicsPaths();
+        MainActivity.trainerPicList = DataManager.loadTrainerPicsList();
+        MainActivity.trainerPicPaths = DataManager.loadTrainerPicsPaths();
+        MainActivity.pokemonPicPaths = DataManager.loadPokemonPicsPaths();
         createMenu(contentPane);
         createEditor(contentPane);
         if (MainActivity.currentTrainer != null){
@@ -126,7 +127,7 @@ public class MainFrame extends JFrame {
         aiInput = new AiFlagsPanel();
         tabbedEditor.add("AI", aiInput);
         partyPanel = new PartyPanel(this);
-        tabbedEditor.add("Party", partyPanel);
+        tabbedEditor.add("Party", new JScrollPane(partyPanel));
         editorBorders.add(Box.createHorizontalStrut(10), BorderLayout.WEST);
         editorBorders.add(Box.createHorizontalStrut(10), BorderLayout.EAST);
         editorBorders.add(Box.createVerticalStrut(5), BorderLayout.NORTH);

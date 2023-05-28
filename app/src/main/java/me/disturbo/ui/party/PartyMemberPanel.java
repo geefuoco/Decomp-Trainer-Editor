@@ -12,7 +12,6 @@ import me.disturbo.ui.extensions.TextFieldLimiter;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class PartyMemberPanel extends JPanel{
@@ -22,172 +21,151 @@ public class PartyMemberPanel extends JPanel{
 
     private final MainFrame frame;
 
-    private JTextField hpIv;
-    private JTextField atkIv;
-    private JTextField defIv;
-    private JTextField spAtkIv;
-    private JTextField spDefIv;
-    private JTextField spdIv;
     private JTextField level;
     private ComboBoxFiltered species;
     private ComboBoxFiltered heldItem;
     private MovesPanel movesPanel;
+    private ValuePanel ivPanel;
+    private ValuePanel evPanel;
+    private PartyMemberPicPanel picPanel;
 
     public PartyMemberPanel(MainFrame frame){
         this.frame = frame;
-
+        
         setBackground(Color.WHITE);
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        setLayout(new GridLayout(4, 1, 10, 10));
 
         JPanel general = new JPanel();
         general.setBackground(Color.WHITE);
-        general.setLayout(new GridBagLayout());
-        GridBagConstraints cons = new GridBagConstraints();
+        general.setLayout(new GridLayout(1, 3, 10, 8));
 
-        cons.gridx = 0; cons.gridy = 0;
-        cons.fill = GridBagConstraints.BOTH;
-        cons.anchor = GridBagConstraints.LINE_START;
-        general.add(Box.createVerticalStrut(5), cons);
+        createPicPanel(general);
+        createIv(general);
+        createEv(general);
 
-        createIv(general, cons);
-        createLevel(general, cons);
-        createSpecies(general, cons);
-        createHeldItem(general, cons);
+        JPanel section = new JPanel();
+        section.setBackground(Color.WHITE);
+        section.setLayout(new GridLayout(2, 2));
 
-        cons.gridx++; cons.gridy = 0;
-        general.add(Box.createRigidArea(new Dimension(20, 5)), cons);
+        createLevel(section);
+        createSpecies(section);
+        createHeldItem(section);
+        createMoves(section);
 
-
-        JPanel moves = new JPanel();
-        moves.setBackground(Color.WHITE);
-        moves.setLayout(new GridBagLayout());
-
-        cons.gridx = 0; moves.add(Box.createVerticalStrut(5), cons);
-        createMoves(moves, cons);
-
-        cons.gridx++; cons.gridy = 0;
-        moves.add(Box.createRigidArea(new Dimension(10, 5)), cons);
-
-        add(general); add(moves);
+        add(general);
+        add(section);
     }
 
-    private final void createIv(JPanel panel, GridBagConstraints cons){
-        JLabel ivLabel = new JLabel("IVs: ");
-        ivLabel.setHorizontalAlignment(JLabel.LEFT);
-        cons.gridy++; panel.add(ivLabel, cons);
-
-        cons.gridy++; panel.add(Box.createVerticalStrut(5), cons);
-
-
-        hpIv = new JTextField();
-        hpIv.setDocument(new TextFieldLimiter(-1, 32));
-        cons.gridy++; panel.add(hpIv, cons);
-
-        atkIv = new JTextField();
-        atkIv.setDocument(new TextFieldLimiter(-1, 32));
-        cons.gridy++; panel.add(atkIv, cons);
-
-        defIv = new JTextField();
-        defIv.setDocument(new TextFieldLimiter(-1, 32));
-        cons.gridy++; panel.add(defIv, cons);
-
-        spAtkIv = new JTextField();
-        spAtkIv.setDocument(new TextFieldLimiter(-1, 32));
-        cons.gridy++; panel.add(spAtkIv, cons);
-
-        spDefIv = new JTextField();
-        spDefIv.setDocument(new TextFieldLimiter(-1, 32));
-        cons.gridy++; panel.add(spDefIv, cons);
-
-        spdIv = new JTextField();
-        spdIv.setDocument(new TextFieldLimiter(-1, 32));
-        cons.gridy++; panel.add(spdIv, cons);
-
-        cons.gridy++; panel.add(Box.createVerticalStrut(10), cons);
+    private final void createPicPanel(JPanel panel) {
+        picPanel = new PartyMemberPicPanel();
+        panel.add(picPanel);
     }
 
-    private final void createLevel(JPanel panel, GridBagConstraints cons){
+
+    private final void createIv(JPanel panel){
+        ivPanel = new ValuePanel(ValuePanel.VALUE_PANEL_IV);
+        panel.add(ivPanel);
+    }
+
+    private final void createEv(JPanel panel){
+        evPanel = new ValuePanel(ValuePanel.VALUE_PANEL_EV);
+        panel.add(evPanel);
+    }
+
+    private final void createLevel(JPanel panel){
+        JPanel levelPanel = new JPanel();
+        levelPanel.setBackground(Color.WHITE);
+        levelPanel.setLayout(new GridLayout(2, 1, 4, 4));
+
         JLabel levelLabel = new JLabel("Level: ");
         levelLabel.setHorizontalAlignment(JLabel.LEFT);
-        cons.gridy++; panel.add(levelLabel, cons);
-
-        cons.gridy++; panel.add(Box.createVerticalStrut(5), cons);
-
+        levelPanel.add(levelLabel);
 
         level = new JTextField();
         level.setDocument(new TextFieldLimiter(-1, 255));
-        cons.gridy++; panel.add(level, cons);
+        levelPanel.add(level);
 
-        cons.gridy++; panel.add(Box.createVerticalStrut(10), cons);
+        panel.add(levelPanel);
+
     }
 
-    private final void createSpecies(JPanel panel, GridBagConstraints cons){
+    private final void createSpecies(JPanel panel){
+        JPanel speciesPanel = new JPanel();
+        speciesPanel.setBackground(Color.WHITE);
+        speciesPanel.setLayout(new GridLayout(2, 1, 4, 4));
+
         JLabel speciesLabel = new JLabel("Species: ");
         speciesLabel.setHorizontalAlignment(JLabel.LEFT);
-        cons.gridy++; panel.add(speciesLabel, cons);
+        speciesPanel.add(speciesLabel);
 
-        cons.gridy++; panel.add(Box.createVerticalStrut(5), cons);
 
         LinkedList<String> keys = new LinkedList<>(MainActivity.species.keySet());
-        species = new ComboBoxFiltered(keys, keys.get(0), new AlphanumericUnderscoreFilter());
+        species = new ComboBoxFiltered(
+            keys,
+            keys.get(0),
+            new AlphanumericUnderscoreFilter()
+        );
+
         JTextField field = (JTextField) species.getEditor().getEditorComponent();
-        field.getDocument().addDocumentListener(new SimplifiedDocumentListener(){
+        field.getDocument()
+             .addDocumentListener(new SimplifiedDocumentListener(){
             @Override
             public void change(DocumentEvent event){
                 // Repaint the frame to update the displayed species in the party member list
                 frame.repaint();
             }
         });
-        cons.gridy++; panel.add(species, cons);
 
-        cons.gridy++; panel.add(Box.createVerticalStrut(10), cons);
+        speciesPanel.add(species);
+        panel.add(speciesPanel);
+
     }
 
-    private final void createHeldItem(JPanel panel, GridBagConstraints cons){
-        JLabel itemLabel = new JLabel("Held item: ");
+    private final void createHeldItem(JPanel panel){
+        JPanel heldItemPanel = new JPanel();
+        heldItemPanel.setBackground(Color.WHITE);
+        heldItemPanel.setLayout(new GridLayout(2, 1, 4, 4));
+
+        JLabel itemLabel = new JLabel("Held Item: ");
         itemLabel.setHorizontalAlignment(JLabel.LEFT);
-        cons.gridy++; panel.add(itemLabel, cons);
+        heldItemPanel.add(itemLabel);
 
-        cons.gridy++; panel.add(Box.createVerticalStrut(5), cons);
+        heldItem = new ComboBoxFiltered(
+            MainActivity.items, 
+            MainActivity.items.get(0), 
+            new AlphanumericUnderscoreFilter()
+        );
+        heldItem.setPrototypeDisplayValue(
+            Utils.getLongestString(MainActivity.items.toArray(new String[0]))
+        );
 
-        heldItem = new ComboBoxFiltered(MainActivity.items, MainActivity.items.get(0), new AlphanumericUnderscoreFilter());
-        heldItem.setPrototypeDisplayValue(Utils.getLongestString(MainActivity.items.toArray(new String[0])));
-        cons.gridy++; panel.add(heldItem, cons);
+        heldItemPanel.add(heldItem);
+        panel.add(heldItemPanel);
 
-        cons.gridy++; panel.add(Box.createVerticalStrut(10), cons);
     }
 
-    private final void createMoves(JPanel panel, GridBagConstraints cons){
+    private final void createMoves(JPanel panel){
         movesPanel = new MovesPanel();
-        cons.gridy++; panel.add(movesPanel, cons);
+        panel.add(movesPanel);
     }
     
-    private final String[] getIVsFromText() {
-        return new String[] {
-            hpIv.getText(),
-            atkIv.getText(),
-            defIv.getText(),
-            spAtkIv.getText(),
-            spDefIv.getText(),
-            spdIv.getText()
-        };
-    }
 
     public final String getSpecies(){
         return ((JTextField) species.getEditor().getEditorComponent()).getText();
     }
 
     public final void loadPartyMemberData(PartyMember member){
-        hpIv.setText(member.ivs[0]);
-        atkIv.setText(member.ivs[1]);
-        defIv.setText(member.ivs[2]);
-        spAtkIv.setText(member.ivs[3]);
-        spDefIv.setText(member.ivs[4]);
-        spdIv.setText(member.ivs[5]);
+        if (member.species != null){
+            String pokemonName = member.species.substring(member.species.indexOf("_") + 1);
+            picPanel.setImage(MainActivity.pokemonPicPaths.get(pokemonName));
+        }
+        ivPanel.setValues(member.ivs);
+        evPanel.setValues(member.evs);
         level.setText(member.level);
         species.setSelectedItem(member.species);
-        heldItem.setSelectedItem(!member.heldItem.equals("") ? member.heldItem : MainActivity.items.get(0));
-        for(int i= 0, movesSize = member.moves.length; i< MainActivity.MOVES_MAX; i++){
+        heldItem.setSelectedItem(member.heldItem != null ? member.heldItem : MainActivity.items.get(0));
+        int movesSize = member.moves != null ? member.moves.length : 0;
+        for(int i= 0; i< MainActivity.MOVES_MAX; i++){
             if(i < movesSize) {
                 movesPanel.setMove(i, MainActivity.moves.get(member.moves[i]));
             }
@@ -199,7 +177,8 @@ public class PartyMemberPanel extends JPanel{
 
 
     public final void savePartyMemberData(PartyMember member){
-        member.ivs = getIVsFromText();
+        member.ivs = ivPanel.getValues();
+        member.evs = evPanel.getValues();//ensure evs dont go over 510 --252 max on one stat
         member.level = level.getText();
         member.species = species.getSelectedItem().toString();
         member.heldItem = heldItem.getSelectedItem().toString();

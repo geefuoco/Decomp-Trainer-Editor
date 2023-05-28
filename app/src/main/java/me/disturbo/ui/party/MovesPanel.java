@@ -4,7 +4,6 @@ import me.disturbo.main.MainActivity;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 public class MovesPanel extends JPanel {
     /*
@@ -14,21 +13,17 @@ public class MovesPanel extends JPanel {
     private MovePanel[] movesPanels = new MovePanel[MainActivity.MOVES_MAX];
 
     public MovesPanel(){
-        setLayout(new GridBagLayout());
+        setLayout(new GridLayout(5, 1));
         setBackground(Color.WHITE);
-        GridBagConstraints cons = new GridBagConstraints();
-        cons.gridx = 0; cons.gridy = 0; cons.weightx = 1;
-        cons.fill = GridBagConstraints.HORIZONTAL;
-        cons.anchor = GridBagConstraints.LINE_START;
 
         JLabel movesLabel = new JLabel("Moves: ");
         movesLabel.setHorizontalAlignment(JLabel.LEFT);
-        add(movesLabel, cons);
+        add(movesLabel);
 
         for(int index = 0; index < MainActivity.MOVES_MAX; index++){
             MovePanel movePanel = new MovePanel();
             movesPanels[index] = movePanel;
-            cons.gridy++; add(movePanel, cons);
+            add(movePanel);
         }
     }
 

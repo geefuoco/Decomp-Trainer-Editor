@@ -19,12 +19,13 @@ public class PartyMemberPicPanel extends JPanel {
     private JLabel label;
 
     public PartyMemberPicPanel() {
-        setLayout(new GridLayout(2, 1));
+        setLayout(new GridLayout(2, 1, 0, 5));
         setBackground(Color.WHITE);
+
 
         icon = new ImageIcon();
         label = new JLabel("Sprite:");
-        label.setHorizontalTextPosition(JLabel.LEFT);
+        label.setHorizontalTextPosition(JLabel.CENTER);
         label.setVerticalTextPosition(JLabel.TOP);
         label.setIcon(icon);
         add(label);

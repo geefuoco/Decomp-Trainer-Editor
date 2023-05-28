@@ -6,27 +6,17 @@ import me.disturbo.ui.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 public class PartyPanel extends JPanel {
-    private final MainFrame frame;
     private final PartyMemberListPanel partyMemberListPanel;
     private final PartyMemberPanel memberPanel;
 
     private PartyMember currentLoaded;
 
     public PartyPanel(MainFrame frame){
-        this.frame = frame;
-
         setBackground(Color.WHITE);
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-        add(Box.createHorizontalStrut(10));
-        JPanel spacer = new JPanel();
-        spacer.setLayout(new BoxLayout(spacer, BoxLayout.PAGE_AXIS));
-        spacer.setAlignmentX(Component.LEFT_ALIGNMENT);
         partyMemberListPanel = new PartyMemberListPanel(frame, this);
-        spacer.add(partyMemberListPanel);
-        add(spacer);
+        add(partyMemberListPanel);
         memberPanel = new PartyMemberPanel(frame);
         add(memberPanel);
     }

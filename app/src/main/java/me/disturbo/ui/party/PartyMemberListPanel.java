@@ -30,30 +30,23 @@ public class PartyMemberListPanel extends JPanel {
         this.panel = panel;
 
         setBackground(Color.WHITE);
-        setLayout(new FlowLayout(FlowLayout.LEFT));
         createListPanel();
-        add(Box.createHorizontalStrut(5));
     }
 
     private final void createListPanel(){
         JPanel listPanel = new JPanel();
         listPanel.setBackground(Color.WHITE);
-        listPanel.setLayout(new GridBagLayout());
-        GridBagConstraints cons = new GridBagConstraints();
+        listPanel.setLayout(new GridLayout(4, 1, 0, 5));
 
-        cons.gridx = 0;
-        cons.gridy = 0;
-        cons.fill = GridBagConstraints.BOTH;
-        createList(listPanel, cons);
-        createAddButton(listPanel, cons);
-        createRemoveButton(listPanel, cons);
-        createMoveButtons(listPanel, cons);
+        createList(listPanel);
+        createAddAndRemoveButtons(listPanel);
+        createMoveButtons(listPanel);
+        setAlignmentX(SwingConstants.LEFT);
+        setAlignmentY(SwingConstants.TOP);
         add(listPanel);
     }
 
-    private final void createList(JPanel pane, GridBagConstraints cons){
-        pane.add(Box.createRigidArea(new Dimension(100, 10)), cons);
-        cons.gridy++;
+    private final void createList(JPanel pane){
         partyList = new JList<>();
         partyList.setCellRenderer(new SpeciesRenderer(panel));
         partyList.setPrototypeCellValue(new PartyMember(Utils.getLongestString(MainActivity.species.values().toArray(new String[0]))));
@@ -61,20 +54,23 @@ public class PartyMemberListPanel extends JPanel {
         partyList.addListSelectionListener(event -> {
             if(!event.getValueIsAdjusting() && partyList.getSelectedIndex() != -1){
                 //If the selected value is not an empty row in the list
-                if(!partyList.getSelectedValue().species.equals(" ")) {
+
+                if(partyList.getSelectedValue() != null && partyList.getSelectedValue().species != null) {
                     panel.switchPartyMemberData(partyList.getSelectedValue());
                     frame.repaint();
                 }
             }
         });
-        pane.add(partyList, cons);
+        pane.add(partyList);
     }
 
-    private final void createAddButton(JPanel pane, GridBagConstraints cons){
-        cons.gridy++;
-        pane.add(Box.createVerticalStrut(5), cons);
-        cons.gridy++;
+    private final void createAddAndRemoveButtons(JPanel pane){
+        JPanel addRemovePanel = new JPanel();
+        addRemovePanel.setBackground(Color.WHITE);
+        addRemovePanel.setLayout(new GridLayout(1, 2));
+
         JButton add = new JButton("Add");
+        add.setLayout(new GridBagLayout());
         add.addActionListener(event ->{
             if(membersCount < MainActivity.PARTY_MAX) {
                 PartyMember member = new PartyMember();
@@ -83,14 +79,9 @@ public class PartyMemberListPanel extends JPanel {
                 partyList.setSelectedIndex(membersCount - 1);
             }
         });
-        pane.add(add, cons);
-    }
 
-    private final void createRemoveButton(JPanel pane, GridBagConstraints cons){
-        cons.gridy++;
-        pane.add(Box.createVerticalStrut(5), cons);
-        cons.gridy++;
         JButton remove = new JButton("Remove");
+        remove.setLayout(new GridBagLayout());
         remove.addActionListener(event ->{
             if(membersCount - 1 > 0){
                 int index = partyList.getSelectedIndex();
@@ -103,28 +94,22 @@ public class PartyMemberListPanel extends JPanel {
                 }
             }
         });
-        pane.add(remove, cons);
+        addRemovePanel.add(add);
+        addRemovePanel.add(remove);
+        pane.add(addRemovePanel);
     }
 
-    private final void createMoveButtons(JPanel pane, GridBagConstraints cons){
-        cons.gridy++;
-        pane.add(Box.createVerticalStrut(5), cons);
-        cons.gridy++;
+
+    private final void createMoveButtons(JPanel pane){
         JPanel move = new JPanel();
         move.setBackground(Color.WHITE);
         move.setLayout(new GridBagLayout());
-        GridBagConstraints moveCons = new GridBagConstraints();
-        moveCons.gridx = 0;
-        moveCons.gridy = 0;
-        moveCons.fill = GridBagConstraints.BOTH;
-        createMoveUpButton(move, moveCons);
-        createMoveDownButton(move, moveCons);
-        pane.add(move, cons);
-        cons.gridy++;
-        pane.add(Box.createVerticalStrut(10), cons);
+        createMoveUpButton(move);
+        createMoveDownButton(move);
+        pane.add(move);
     }
 
-    private final void createMoveUpButton(JPanel pane, GridBagConstraints cons){
+    private final void createMoveUpButton(JPanel pane){
         JButton moveUp = new JButton("Move up");
         moveUp.addActionListener(event ->{
             int index = partyList.getSelectedIndex();
@@ -134,13 +119,11 @@ public class PartyMemberListPanel extends JPanel {
                 partyList.setSelectedIndex(index - 1);
             }
         });
-        pane.add(moveUp, cons);
-        cons.gridx++;
-        pane.add(Box.createHorizontalStrut(5), cons);
+        pane.add(moveUp);
+        pane.add(Box.createHorizontalStrut(5));
     }
 
-    private final void createMoveDownButton(JPanel pane, GridBagConstraints cons){
-        cons.gridx++;
+    private final void createMoveDownButton(JPanel pane){
         JButton moveDown = new JButton("Move down");
         moveDown.addActionListener(event ->{
             int index = partyList.getSelectedIndex();
@@ -150,7 +133,7 @@ public class PartyMemberListPanel extends JPanel {
                 partyList.setSelectedIndex(index + 1);
             }
         });
-        pane.add(moveDown, cons);
+        pane.add(moveDown);
     }
 
     public final int getMembersCount(){
@@ -180,7 +163,7 @@ public class PartyMemberListPanel extends JPanel {
 
         // Fill the party with empty slots until PARTY_MAX is reached
         while(model.getSize() < MainActivity.PARTY_MAX){
-            model.addElement(new PartyMember(" "));
+            model.addElement(PartyMember.createPartyMemberPlaceholder());
         }
         partyList.setModel(model);
         partyList.setSelectedIndex(0);

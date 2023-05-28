@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class PartyMember {
     /*
@@ -49,14 +50,14 @@ public class PartyMember {
         this((new LinkedList<>(MainActivity.species.keySet())).get(0));
     }
 
-    public PartyMember(HashMap<String, String> values){
+    public PartyMember(Map<String, String> values){
         //ivs will be in the form TRAINER_PARTY_IVS(1,2,3,4,5,6) or a number string: 122
         String ivs = values.get("iv");
-        if(ivs != null){
+        if(ivs == null || !ivs.contains("TRAINER")){
+            this.ivs = new String[]{"0", "0", "0", "0", "0", "0"};
+        } else {
             ivs = ivs.substring(ivs.indexOf("(") + 1 , ivs.length()-1);
             this.ivs = ivs.replaceAll("\\s+", "").split(",");
-        } else {
-            this.ivs = new String[]{"0", "0", "0", "0", "0", "0"};
         }
         //evs will be in the form TRAINER_PARTY_EVS(1,2,3,4,5,6) or not appear at all
         String evs = values.get("ev");
@@ -84,6 +85,13 @@ public class PartyMember {
         if(moves.length() == 0) return new String[4];
         moves = moves.replaceAll("\\s+", "");
         return moves.substring(1, moves.length() - 1).split(",");
+    }
+
+    public static final PartyMember createPartyMemberPlaceholder() {
+        Map<String, String> templateValues = new HashMap<>();
+        templateValues.put("lvl", "5");
+        templateValues.put("species", "SPECIES_NONE");
+        return new PartyMember(templateValues);
     }
 
     public final String buildMemberStruct(){

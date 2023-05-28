@@ -16,20 +16,15 @@ public class MovePanel extends JPanel {
     private final ComboBoxFiltered moveBox;
 
     public MovePanel(){
-        setLayout(new GridBagLayout());
         setBackground(Color.WHITE);
-        GridBagConstraints cons = new GridBagConstraints();
-        cons.gridx = 0; cons.gridy = 0; cons.weightx = 1;
-        cons.fill = GridBagConstraints.BOTH;
-        cons.anchor = GridBagConstraints.LINE_START;
+        setLayout(new GridLayout(1, 1, 0, 5));
 
-        cons.gridy++; add(Box.createVerticalStrut(5), cons);
-
-        cons.fill = GridBagConstraints.NONE;
         LinkedList<String> values = new LinkedList<>(MainActivity.moves.values());
         moveBox = new ComboBoxFiltered(values, values.get(0), new MovesFilter());
-        moveBox.setPrototypeDisplayValue(Utils.getLongestString(values.toArray(new String[0])));
-        cons.gridy++; add(moveBox, cons);
+        moveBox.setPrototypeDisplayValue(
+            Utils.getLongestString(values.toArray(new String[0]))
+        );
+        add(moveBox);
     }
 
     public final void setSelectedItem(String item){
