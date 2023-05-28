@@ -1,14 +1,18 @@
 package me.disturbo.ui.trainer;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.Box;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import me.disturbo.main.MainActivity;
 import me.disturbo.main.Utils;
 import me.disturbo.ui.extensions.AlphanumericUnderscoreFilter;
-import me.disturbo.ui.party.MovesFilter;
 import me.disturbo.ui.extensions.ComboBoxFiltered;
 import me.disturbo.ui.extensions.ImagePanel;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class TrainerPicPanel extends JPanel {
     /*
@@ -42,8 +46,8 @@ public class TrainerPicPanel extends JPanel {
         cons.gridy++; add(Box.createVerticalStrut(10), cons);
 
         
-        picBox = new ComboBoxFiltered(MainActivity.picList, new AlphanumericUnderscoreFilter());
-        picBox.setPrototypeDisplayValue(Utils.getLongestString(MainActivity.picList.toArray(new String[0])));
+        picBox = new ComboBoxFiltered(MainActivity.trainerPicList, new AlphanumericUnderscoreFilter());
+        picBox.setPrototypeDisplayValue(Utils.getLongestString(MainActivity.trainerPicList.toArray(new String[0])));
         cons.gridy++; add(picBox, cons);
 
         addFieldListener();
@@ -51,7 +55,7 @@ public class TrainerPicPanel extends JPanel {
     
     private final void addFieldListener(){
         picBox.addActionListener(e -> {
-            picPanel.setImage(MainActivity.picPaths.get(picBox.getSelectedItem()));
+            picPanel.setImage(MainActivity.trainerPicPaths.get(picBox.getSelectedItem()));
             picPanel.repaint();
         });
     }

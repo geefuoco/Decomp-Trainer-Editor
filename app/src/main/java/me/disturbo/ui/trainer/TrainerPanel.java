@@ -154,7 +154,7 @@ public class TrainerPanel extends JPanel {
         nameInput.setText(trainer.trainerName);
         classInput.setSelectedItem(trainer.trainerClass);
         doubleBattleCheck.setSelected(trainer.doubleBattle);
-        picPanel.setImage(MainActivity.picPaths.get(trainer.trainerPic));
+        picPanel.setImage(MainActivity.trainerPicPaths.get(trainer.trainerPic));
         picPanel.setSelectedPic(trainer.trainerPic);
         musicInput.setSelectedItem(trainer.music);
         genderPanel.doSelection(trainer.gender);
