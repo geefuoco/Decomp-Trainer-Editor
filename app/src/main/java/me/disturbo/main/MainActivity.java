@@ -27,8 +27,8 @@ public class MainActivity {
     public static LinkedHashMap<String, TrainerClass> trainerClasses;
     public static LinkedList<String> items;
     public static LinkedHashMap<String, String> moves, species;
-    public static LinkedList<String> music, aiFlags, picList;
-    public static LinkedHashMap<String, String> picPaths;
+    public static LinkedList<String> music, aiFlags, trainerPicList;
+    public static LinkedHashMap<String, String> trainerPicPaths, pokemonPicPaths;
     public static LinkedHashMap<String, Trainer> loadedTrainers = new LinkedHashMap<>();
 
     public static void main(String[] args){

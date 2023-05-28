@@ -78,14 +78,42 @@ public class DataManager {
             .toString()
     );
 
-    private static final File picList = new File(
+
+    private static final File pokemonPicsPaths = new File(
+        new StringBuilder()
+            .append(MainActivity.projectDirectory)  
+            .append(File.separator)  
+            .append("src")
+            .append(File.separator)
+            .append("data")
+            .append(File.separator)
+            .append("graphics")
+            .append(File.separator)
+            .append("pokemon.h")
+            .toString()
+    );
+
+    private static final File pokemonPicTable = new File(
+        new StringBuilder()
+            .append(MainActivity.projectDirectory)  
+            .append(File.separator)  
+            .append("src")
+            .append(File.separator)
+            .append("data")
+            .append(File.separator)
+            .append("pokemon_graphics")
+            .append(File.separator)
+            .append("front_pic_table.h")
+            .toString()
+    );
+    private static final File trainerPicList = new File(
         new StringBuilder()
             .append(include_constants)
             .append("trainers.h")
             .toString()
     );
 
-    private static final File picsPaths = new File(
+    private static final File trainerPicsPaths = new File(
         new StringBuilder()
             .append(MainActivity.projectDirectory)  
             .append(File.separator)  
@@ -99,7 +127,7 @@ public class DataManager {
             .toString()
     );
 
-    private static final File picTable = new File(
+    private static final File trainerPicTable = new File(
         new StringBuilder()
             .append(MainActivity.projectDirectory)  
             .append(File.separator)  
@@ -163,16 +191,25 @@ public class DataManager {
     }
 
     public static final LinkedList<String> loadTrainerPicsList(){
-        return (new TrainerPicsListParser()).parse(picList, new LinkedList<>());
+        return (new TrainerPicsListParser()).parse(trainerPicList, new LinkedList<>());
     }
 
     public static final LinkedHashMap<String, String> loadTrainerPicsPaths(){
         LinkedHashMap<String, String> picTable = loadTrainerPicTable();
-        return (new TrainerPicsPathsParser(picTable)).parse(picsPaths, new LinkedHashMap<>());
+        return (new TrainerPicsPathsParser(picTable)).parse(trainerPicsPaths, new LinkedHashMap<>());
     }
 
-    public static final LinkedHashMap<String, String> loadTrainerPicTable(){
-        return (new TrainerPicTableParser()).parse(picTable, new LinkedHashMap<>());
+    private static final LinkedHashMap<String, String> loadTrainerPicTable(){
+        return (new TrainerPicTableParser()).parse(trainerPicTable, new LinkedHashMap<>());
+    }
+
+    public static final LinkedHashMap<String, String> loadPokemonPicsPaths(){
+        LinkedHashMap<String, String> picTable = loadPokemonPicTable();
+        return (new PokemonPicsPathsParser(picTable)).parse(pokemonPicsPaths, new LinkedHashMap<>());
+    }
+
+    private static final LinkedHashMap<String, String> loadPokemonPicTable(){
+        return (new PokemonPicTableParser()).parse(pokemonPicTable, new LinkedHashMap<>());
     }
 
     public static final LinkedHashMap<String, Integer> indexTrainers(){
