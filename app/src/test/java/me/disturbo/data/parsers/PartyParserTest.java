@@ -1,13 +1,18 @@
 package me.disturbo.data.parsers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
 
 public class PartyParserTest {
 
     private static PartyParser partyParser = new PartyParser();
 
-    public static void runTest() {
+    @Test
+    public void runTest() {
 
         String rawParty = new StringBuilder()
                 .append("static const struct TrainerMonCustomized sParty_Sawyer1[] = {")
@@ -53,29 +58,26 @@ public class PartyParserTest {
 
         ArrayList<HashMap<String, String>> partyMemberList = partyParser.parseIntoMap(name, rawParty);
 
-        assert partyMemberList.size() == 2;
-        //First Party Member
+        assertEquals(partyMemberList.size(), 2);
+        // First Party Member
         HashMap<String, String> member1 = partyMemberList.get(0);
 
-        assert member1.get("iv") == "TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0)";
-        assert member1.get("ev") == "TRAINER_PARTY_EVS(0, 0, 0, 0, 0, 0)";
-        assert member1.get("moves") == "{MOVE_GROWL, MOVE_MAGNITUDE, MOVE_TACKLE, MOVE_EXPLOSION}";
-        assert member1.get("gender") == "TRAINER_MON_MALE";
-        assert member1.get("nautre") == "TRAINER_PARTY_NATURE(NATURE_HARDY)";
-        assert member1.get("isShiny") == "TRUE";
-        assert member1.get("lvl") == "21";
-        assert member1.get("species") == "SPECIES_GEODUDE";
-        assert member1.get("friendship") == "200";
-        assert member1.get("ball") == "ITEM_MASTER_BALL";
-
+        assertEquals(member1.get("iv"), "TRAINER_PARTY_IVS(0,0,0,0,0,0)");
+        assertEquals(member1.get("ev"), "TRAINER_PARTY_EVS(0,0,0,0,0,0)");
+        assertEquals(member1.get("moves"), "{MOVE_GROWL,MOVE_MAGNITUDE,MOVE_TACKLE,MOVE_EXPLOSION}");
+        assertEquals(member1.get("gender"), "TRAINER_MON_MALE");
+        assertEquals(member1.get("nature"), "TRAINER_PARTY_NATURE(NATURE_HARDY)");
+        assertEquals(member1.get("isShiny"), "TRUE");
+        assertEquals(member1.get("lvl"), "21");
+        assertEquals(member1.get("species"), "SPECIES_GEODUDE");
+        assertEquals(member1.get("friendship"), "200");
+        assertEquals(member1.get("ball"), "ITEM_MASTER_BALL");
 
         HashMap<String, String> member2 = partyMemberList.get(1);
 
-        assert member1.get("iv") == "TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0)";
-        assert member1.get("lvl") == "29";
-        assert member1.get("species") == "SPECIES_GEODUDE";
+        assertEquals(member2.get("iv"), "TRAINER_PARTY_IVS(0,0,0,0,0,0)");
+        assertEquals(member2.get("lvl"), "29");
+        assertEquals(member2.get("species"), "SPECIES_GEODUDE");
 
-        System.out.println("All Tests passed");
-        
     }
 }
