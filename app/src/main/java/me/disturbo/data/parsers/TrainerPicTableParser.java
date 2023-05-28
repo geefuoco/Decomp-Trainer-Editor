@@ -2,7 +2,6 @@ package me.disturbo.data.parsers;
 
 import me.disturbo.data.LineParser;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class TrainerPicTableParser implements LineParser<LinkedHashMap<String, String>> {
