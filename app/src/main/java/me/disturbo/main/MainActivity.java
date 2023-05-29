@@ -25,7 +25,7 @@ public class MainActivity {
     public static String currentTrainer = null;
     public static LinkedHashMap<String, Integer> trainerIndexes, partyIndexes;
     public static LinkedHashMap<String, TrainerClass> trainerClasses;
-    public static LinkedList<String> items;
+    public static LinkedList<String> items, natures;
     public static LinkedHashMap<String, String> moves, species;
     public static LinkedList<String> music, aiFlags, trainerPicList;
     public static LinkedHashMap<String, String> trainerPicPaths, pokemonPicPaths;

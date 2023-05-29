@@ -15,6 +15,7 @@ import java.util.*;
 
 public class DataManager {
 
+
     private static final String include_constants = new StringBuilder()
                                                 .append(MainActivity.projectDirectory)
                                                 .append(File.separator)
@@ -35,6 +36,12 @@ public class DataManager {
                                             .append(File.separator)
                                             .toString();
 
+    private static final File natures = new File(
+        new StringBuilder()
+            .append(include_constants)
+            .append("pokemon.h")
+            .toString()
+    );
 
     private static final File trainerClasses = new File(
         new StringBuilder()
@@ -164,6 +171,10 @@ public class DataManager {
             .append("trainer_parties.h")
             .toString()
     );
+
+    public static final LinkedList<String> loadNatures() {
+        return (new NatureParser()).parse(natures, new LinkedList<>());
+    }
 
     public static final LinkedHashMap<String, TrainerClass> loadTrainerClasses(){
         return (new TrainerClassesParser()).parse(trainerClasses, new LinkedHashMap<>());
