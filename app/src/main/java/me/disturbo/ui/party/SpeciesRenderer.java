@@ -18,17 +18,17 @@ public class SpeciesRenderer extends JLabel implements ListCellRenderer<PartyMem
         setOpaque(true);
 
         String display;
-        String savedSpecies = MainActivity.species.get(value.species);
+        String savedSpecies = MainActivity.species.get(value.getSpecies());
 
         if(value == panel.getCurrentLoaded()){
             String species = MainActivity.species.get(panel.getSpeciesText());
             if(species != null) display = " " + species;
             else{
                 if(savedSpecies != null) display = " " + savedSpecies;
-                else display = " " + value.species;
+                else display = " " + value.getSpecies();
             }
         }
-        else display = savedSpecies != null ? " " + savedSpecies : " " + value.species;
+        else display = savedSpecies != null ? " " + savedSpecies : " " + value.getSpecies();
 
         setText(display);
 

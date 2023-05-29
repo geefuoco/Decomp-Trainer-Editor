@@ -1,5 +1,6 @@
 package me.disturbo.ui.party;
 
+import me.disturbo.main.MainActivity;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -21,7 +22,6 @@ public class ValuePanel extends JPanel {
 
     private static int MAX_LIST_VALUES = 6;
 
-    public static int MAX_EV_TOTAL = 510;
     public static int VALUE_PANEL_IV = 0;
     public static int VALUE_PANEL_EV = 1;
     
@@ -70,7 +70,7 @@ public class ValuePanel extends JPanel {
 
     public void updateTotal() {
         int total = Arrays.stream(getValues()).mapToInt(Integer::parseInt).reduce(0, Integer::sum);
-        if (total <= MAX_EV_TOTAL){
+        if (total <= MainActivity.MAX_EV_TOTAL){
             totalValue.setText(String.valueOf(total));
         }
     }
@@ -128,7 +128,7 @@ public class ValuePanel extends JPanel {
                 int totalSum = 0;
                 while(i < MAX_LIST_VALUES) {
                     int rng = rand.nextInt(maxInt);
-                    if(totalSum + rng <= MAX_EV_TOTAL) {
+                    if(totalSum + rng <= MainActivity.MAX_EV_TOTAL) {
                         totalSum += rng;
                         values[i] = rng;
                         i++;

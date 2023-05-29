@@ -25,18 +25,18 @@ public class PartyMemberTest {
 
         PartyMember member1 = new PartyMember(values);
 
-        assertArrayEquals(member1.ivs, new String[] { "0", "0", "0", "0", "0", "0" });
-        assertArrayEquals(member1.evs, new String[] { "0", "0", "0", "0", "0", "0" });
-        assertArrayEquals(member1.moves,
+        assertArrayEquals(member1.getIvs(), new String[] { "0", "0", "0", "0", "0", "0" });
+        assertArrayEquals(member1.getEvs(), new String[] { "0", "0", "0", "0", "0", "0" });
+        assertArrayEquals(member1.getMoves(),
                 new String[] { "MOVE_GROWL", "MOVE_MAGNITUDE", "MOVE_TACKLE", "MOVE_EXPLOSION" });
-        assertEquals(member1.isShiny, "TRUE");
-        assertEquals(member1.level, "21");
-        assertEquals(member1.species, "SPECIES_GEODUDE");
-        assertEquals(member1.nature, "TRAINER_PARTY_NATURE(NATURE_HARDY)");
-        assertEquals(member1.nickname, null);
-        assertEquals(member1.ability, null);
-        assertEquals(member1.friendship, "200");
-        assertEquals(member1.gender, "TRAINER_MON_MALE");
-        assertEquals(member1.ball, "ITEM_MASTER_BALL");
+        assertEquals(member1.getIsShiny(), "TRUE");
+        assertEquals(member1.getLevel(), "21");
+        assertEquals(member1.getSpecies(), "SPECIES_GEODUDE");
+        assertEquals(member1.getNature(), "NATURE_HARDY");
+        assertEquals(member1.getNickname(), null);
+        assertEquals(member1.getAbility(), null);
+        assertEquals(member1.getFriendship(), "200");
+        assertEquals(member1.getGender(), "TRAINER_MON_MALE");
+        assertEquals(member1.getBall(), "ITEM_MASTER_BALL");
     }
 }

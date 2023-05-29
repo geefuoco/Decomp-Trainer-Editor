@@ -21,6 +21,8 @@ public class MainActivity {
     public static final int PARTY_MAX = 6;
     public static final int NAME_MAX = 11;
     public static final int MOVES_MAX = 4;
+    public static final int MAX_EV_TOTAL = 510;
+    public static final int MAX_IV_TOTAL = 31*6;
 
     public static String currentTrainer = null;
     public static LinkedHashMap<String, Integer> trainerIndexes, partyIndexes;

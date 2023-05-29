@@ -55,7 +55,7 @@ public class PartyMemberListPanel extends JPanel {
             if(!event.getValueIsAdjusting() && partyList.getSelectedIndex() != -1){
                 //If the selected value is not an empty row in the list
 
-                if(partyList.getSelectedValue() != null && partyList.getSelectedValue().species != null) {
+                if(partyList.getSelectedValue() != null && partyList.getSelectedValue().getSpecies() != null) {
                     panel.switchPartyMemberData(partyList.getSelectedValue());
                     frame.repaint();
                 }
@@ -88,7 +88,7 @@ public class PartyMemberListPanel extends JPanel {
                 // If there is no index selected set the index to the last pokemon
                 index = index != -1 ? index : membersCount - 1;
                 // If the selected value is not an empty row in the list
-                if(!partyList.getModel().getElementAt(index).equals(" ")){
+                if(!partyList.getModel().getElementAt(index).equals(new PartyMember())){
                     removeFromPartyList(index);
                     partyList.setSelectedIndex(index - (index - 1 >= 0 ? index - 1 : 0));
                 }
@@ -180,7 +180,7 @@ public class PartyMemberListPanel extends JPanel {
         DefaultListModel<PartyMember> model = generateModel();
         PartyMember member = model.get(from);
         //Base cases
-        if(!member.species.equals(" ") && from != to) {
+        if(!member.getSpecies().equals(" ") && from != to) {
             if(from >= to) from++;
             else to++;
             model.add(to, member);

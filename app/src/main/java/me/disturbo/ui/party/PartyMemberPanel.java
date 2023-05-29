@@ -170,15 +170,16 @@ public class PartyMemberPanel extends JPanel {
         LinkedList<String> ballItems = MainActivity.items
                 .stream()
                 .filter(item -> {
-                    //Filtering out BALL items that are not pokeballs
+                    // Filtering out BALL items that are not pokeballs
                     return item.startsWith("ITEM") &&
-                           !(item.contains("SMOKE") || 
-                             item.contains("ITEM_TM") ||
-                             item.contains("FIRST") ||
-                             item.contains("LAST") ||
-                             item.contains("LIGHT") ||
-                             item.contains("IRON")) &&
-                           item.endsWith("_BALL");
+                            !(item.contains("SMOKE") ||
+                                    item.contains("ITEM_TM") ||
+                                    item.contains("FIRST") ||
+                                    item.contains("LAST") ||
+                                    item.contains("LIGHT") ||
+                                    item.contains("IRON"))
+                            &&
+                            item.endsWith("_BALL");
                 })
                 .collect(Collectors.toCollection(LinkedList::new));
 
@@ -282,38 +283,29 @@ public class PartyMemberPanel extends JPanel {
         panel.add(movesPanel);
     }
 
-    private final boolean validEvs() {
-        return evPanel.getTotalValue() <= ValuePanel.MAX_EV_TOTAL;
-    }
-
     public final String getSpecies() {
         return ((JTextField) species.getEditor().getEditorComponent()).getText();
     }
 
     public final void loadPartyMemberData(PartyMember member) {
-        if (member.species != null) {
-            String pokemonName = member.species.substring(member.species.indexOf("_") + 1);
+        if (member.getSpecies() != null) {
+            String pokemonName = member.getSpecies().substring(member.getSpecies().indexOf("_") + 1);
             picPanel.setImage(MainActivity.pokemonPicPaths.get(pokemonName));
         }
-        ivPanel.setValues(member.ivs);
-        evPanel.setValues(member.evs);
-        level.setText(member.level);
-        species.setSelectedItem(member.species);
-        heldItem.setSelectedItem(member.heldItem != null ? member.heldItem : MainActivity.items.get(0));
-        if (member.isShiny != null) {
-            switch (member.isShiny) {
-                case "TRUE":
-                    shiny.setSelected(true);
-                    break;
-                default:
-                    shiny.setSelected(false);
-                    break;
-            }
-        }
-        int movesSize = member.moves != null ? member.moves.length : 0;
+        ivPanel.setValues(member.getIvs());
+        evPanel.setValues(member.getEvs());
+        level.setText(member.getLevel());
+        species.setSelectedItem(member.getSpecies());
+        heldItem.setSelectedItem(member.getHeldItem() != null ? member.getHeldItem() : "NONE");
+        balls.setSelectedItem(member.getBall() != null ? member.getBall() : "NONE");
+        friendship.setText(member.getFriendship());
+        natures.setSelectedItem(member.getNature() != null ? member.getNature() : "NONE");
+        abilities.setSelectedItem(member.getAbility() != null ? member.getAbility() : "NONE");
+        shiny.setSelected(member.getIsShiny() == "TRUE");
+        int movesSize = member.getMoves() != null ? member.getMoves().length : 0;
         for (int i = 0; i < MainActivity.MOVES_MAX; i++) {
             if (i < movesSize) {
-                movesPanel.setMove(i, MainActivity.moves.get(member.moves[i]));
+                movesPanel.setMove(i, MainActivity.moves.get(member.getMoves()[i]));
             } else {
                 movesPanel.setMove(i, MainActivity.moves.values().toArray(new String[0])[0]);
             }
@@ -321,28 +313,16 @@ public class PartyMemberPanel extends JPanel {
     }
 
     public final void savePartyMemberData(PartyMember member) {
-        member.ivs = ivPanel.getValues();
-        if (validEvs()) {
-            member.evs = evPanel.getValues();
-        }
-        member.level = level.getText();
-        member.species = species.getSelectedItem().toString();
-        if(!(friendship.getText() == null || friendship.getText() == "")) {
-            member.friendship = friendship.getText();
-        }
-        if(!(heldItem.getSelectedItem().toString() == "NONE")){
-            member.heldItem = heldItem.getSelectedItem().toString();
-        }
-        member.isShiny = shiny.isSelected() ? "TRUE" : "FALSE";
-        if(!(balls.getSelectedItem().toString() == "NONE")){
-            member.ball = balls.getSelectedItem().toString();
-        }
-        if(!(natures.getSelectedItem().toString() == "NONE")){
-            member.nature = natures.getSelectedItem().toString();
-        }
-        if(!(abilities.getSelectedItem().toString() == "NONE")){
-            member.ability = abilities.getSelectedItem().toString();
-        }
+        member.setIvs(ivPanel.getValues());
+        member.setEvs(evPanel.getValues());
+        member.setLevel(level.getText());
+        member.setSpecies(species.getSelectedItem().toString());
+        member.setFriendship(friendship.getText());
+        member.setHeldItem(heldItem.getSelectedItem().toString());
+        member.setIsShiny(shiny.isSelected() ? "TRUE" : "FALSE");
+        member.setBall(balls.getSelectedItem().toString());
+        member.setNature(natures.getSelectedItem().toString());
+        member.setAbility(abilities.getSelectedItem().toString());
 
         LinkedList<String> keys = new LinkedList<>(MainActivity.moves.keySet());
         LinkedList<String> values = new LinkedList<>(MainActivity.moves.values());
@@ -356,7 +336,7 @@ public class PartyMemberPanel extends JPanel {
             moves[i] = keys.get(indexOfMove);
         }
         if (noneMoveCount != 4) {
-            member.moves = moves;
+            member.setMoves(moves);
         }
     }
 }
