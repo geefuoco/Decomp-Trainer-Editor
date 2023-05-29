@@ -43,7 +43,7 @@ public class PartyMemberStructTest {
 
         String finalStr = partyMemberStruct.build();
         String expectedString = new StringBuilder()
-                .append("{")
+                .append("    {")
                 .append(System.lineSeparator())
                 .append("    .nickname = COMPOUND_STRING(\"Tokyo\"),")
                 .append(System.lineSeparator())
@@ -71,13 +71,18 @@ public class PartyMemberStructTest {
                 .append(System.lineSeparator())
                 .append("    .isShiny = FALSE,")
                 .append(System.lineSeparator())
-                .append("}")
+                .append("    };")
                 .toString();
-        assertEquals(finalStr, expectedString, new StringBuilder()
-                .append("---------EXPECTED----------")
-                .append(expectedString)
-                .append("---------ACTUAL----------")
-                .append(finalStr).toString());
+        assertEquals(finalStr, expectedString);
+            // new StringBuilder()
+            //     .append(System.lineSeparator())
+            //     .append("---------EXPECTED----------")
+            //     .append(System.lineSeparator())
+            //     .append(expectedString)
+            //     .append(System.lineSeparator())
+            //     .append("---------ACTUAL----------")
+            //     .append(System.lineSeparator())
+            //     .append(finalStr).toString());
 
     }
 
