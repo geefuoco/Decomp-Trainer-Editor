@@ -9,16 +9,18 @@ public class PartyMemberStruct {
     private final String NEW_LINE = System.lineSeparator();
     private final String INDENT = "    ";
     private final String COMMA = ",";
+    private final String SEMI_COLON = ";";
     private StringBuilder finalStruct;
 
     public PartyMemberStruct(){
         this.finalStruct = new StringBuilder()
+                           .append(INDENT)
                            .append(OPEN_BRACKET)
                            .append(NEW_LINE);
     }
 
     public String build() {
-        return this.finalStruct.append(CLOSE_BRACKET).toString();
+        return this.finalStruct.append(INDENT + CLOSE_BRACKET + SEMI_COLON).toString();
     }
 
     private final String buildMoves(String[] moves){

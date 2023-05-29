@@ -2,8 +2,6 @@ package me.disturbo.types;
 
 import me.disturbo.main.MainActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -98,14 +96,14 @@ public class PartyMember {
         partyMemberStruct = new PartyMemberStruct();
         partyMemberStruct.addIvs(ivs);
         if(evs != null){
-            partyMemberStruct.addIvs(ivs);
+            partyMemberStruct.addEvs(evs);
         } 
         partyMemberStruct.addLvl(level);
         partyMemberStruct.addSpecies(species);
-        if(heldItem != MainActivity.items.get(0)){
+        if(heldItem != MainActivity.items.get(0) || heldItem != null){
             partyMemberStruct.addHeldItem(heldItem);
         }
-        if(moves.length > 0){
+        if(moves != null){
             partyMemberStruct.addMoves(moves);
         }
         if(ability != null){
