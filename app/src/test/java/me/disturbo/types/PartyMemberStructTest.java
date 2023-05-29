@@ -71,19 +71,9 @@ public class PartyMemberStructTest {
                 .append(System.lineSeparator())
                 .append("    .isShiny = FALSE,")
                 .append(System.lineSeparator())
-                .append("    };")
+                .append("    }")
                 .toString();
         assertEquals(finalStr, expectedString);
-            // new StringBuilder()
-            //     .append(System.lineSeparator())
-            //     .append("---------EXPECTED----------")
-            //     .append(System.lineSeparator())
-            //     .append(expectedString)
-            //     .append(System.lineSeparator())
-            //     .append("---------ACTUAL----------")
-            //     .append(System.lineSeparator())
-            //     .append(finalStr).toString());
-
     }
 
 }

@@ -48,11 +48,10 @@ public class Party extends LinkedList<PartyMember> {
             if (i < this.size() - 1) {
                 struct.append(", ");
             }
-            ;
             struct.append(System.lineSeparator());
         }
         struct
-                .append("}")
+                .append("};")
                 .append(System.lineSeparator())
                 .append(System.lineSeparator());
         return struct.toString();
