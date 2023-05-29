@@ -125,7 +125,7 @@ public class MainFrame extends JFrame {
         generalInput = new TrainerPanel();
         tabbedEditor.add("General", generalInput);
         aiInput = new AiFlagsPanel();
-        tabbedEditor.add("AI", aiInput);
+        tabbedEditor.add("AI", new JScrollPane(aiInput));
         partyPanel = new PartyPanel(this);
         tabbedEditor.add("Party", new JScrollPane(partyPanel));
         editorBorders.add(Box.createHorizontalStrut(10), BorderLayout.WEST);
