@@ -82,6 +82,9 @@ public class PartyMember {
     }
 
     private final String extractNature(String rawNature){
+        if(rawNature == null){
+            return null;
+        }
         return rawNature.substring(rawNature.indexOf("(")+1, rawNature.length()-1);
     }
 
@@ -167,25 +170,25 @@ public class PartyMember {
     }
 
     public void setHeldItem(String heldItem) {
-        if (!(heldItem == "" || ability == "NONE")) {
+        if (!(heldItem.isEmpty() ||  heldItem == "NONE")) {
             this.heldItem = heldItem;
         }
     }
 
     public void setAbility(String ability) {
-        if (!(ability == "" || ability == "NONE")) {
+        if (!(ability.isEmpty() || ability == "NONE")) {
             this.ability = ability;
         }
     }
 
     public void setNature(String nature) {
-        if (!(nature == "" || nature == "NONE")) {
+        if (!(nature.isEmpty() || nature == "NONE")) {
             this.nature = nature;
         }
     }
 
     public void setGender(String gender) {
-        if (!(gender == "" || gender == "NONE")) {
+        if (!(gender.isEmpty() || gender == "NONE")) {
             this.gender = gender;
         }
     }
@@ -202,13 +205,13 @@ public class PartyMember {
     }
 
     public void setFriendship(String friendship) {
-        if (!(friendship == "" || friendship == "NONE")) {
+        if (!(friendship.isEmpty() || friendship == "NONE")) {
             this.friendship = friendship;
         }
     }
 
     public void setBall(String ball) {
-        if (!(ball == "" || ball == "NONE")) {
+        if (!(ball.isEmpty() || ball == "NONE")) {
             this.ball = ball;
         }
     }

@@ -313,6 +313,16 @@ public class PartyMemberPanel extends JPanel {
     }
 
     public final void savePartyMemberData(PartyMember member) {
+        System.out.println(ivPanel.getValues());
+        System.out.println(evPanel.getValues());
+        System.out.println(level.getText());
+        System.out.println(species.getSelectedItem().toString());
+        System.out.println(friendship.getText()); 
+        System.out.println(heldItem.getSelectedItem().toString());
+        System.out.println(shiny.isSelected() ? "TRUE" : "FALSE");
+        System.out.println(balls.getSelectedItem().toString());
+        System.out.println(natures.getSelectedItem().toString());
+        System.out.println(abilities.getSelectedItem().toString());
         member.setIvs(ivPanel.getValues());
         member.setEvs(evPanel.getValues());
         member.setLevel(level.getText());
