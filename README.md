@@ -3,34 +3,15 @@ DTE allows you to modify every trainer's properties (and there are around 850 of
 
 This tool has been modified to support pokeemerald-expansion tested on [this](https://github.com/rh-hideout/pokeemerald-expansion/tree/0ac203f2e50de8ae24d8e8e603b60b469f8be007) commit.
 
+
 # How to compile / run
-Java is needed to run the program (tested using openjdk 11.0.19)
+Java is needed to run the program. Download from [release](https://github.com/geefuoco/Decomp-Trainer-Editor/releases/tag/v1.0.0)
 
-## Compile
-```
-git clone https://github.com/geefuoco/Decomp-Trainer-Editor 
-cd Decomp-Trainer-Editor
-mkdir build
-```
+## Windows
+Run the .bat file in `/bin`. JAVA_HOME Variable needs to be set in order to run it.
 
-With Python3
-
-```
-./build.py
-```
-
-Without Python3
-
-```
-javac -sourcepath ./src -d ./build ./src/me/disturbo/main/MainActivity.java
-jar cmf ./src/META-INF/MANIFEST.MF ./build/decomp-trainer-editor.jar
-```
-
-## Run
-```
-java -jar decomp-trainer-editor.jar
-```
-
+## Linux
+Run the app file in `/bin`
 
 
 
@@ -56,8 +37,6 @@ Trainer editing:
  - Music
  - AI:  Changes the trainer's behaviour. Includes some not targeted towards trainers.
 
-![enter image description here](https://i.imgur.com/fJ4bhnJ.png)
-
 Party editing:
  - Addition and deletion of party members: Up to a maximum of `PARTY_MAX` and a minimum of 1
  - Party member order
@@ -66,27 +45,8 @@ Party editing:
  - Species
  - Held item
  - Moves: If one of the Pokémon in the party has custom moves, it is required that the rest have them too or otherwise their moveset will be empty
-
-
-## Named constants and limitations
-Some constant values have been made into named constants and placed in `MainActivity.java` to allow for an easier modification when needed. These are:
- - `ITEMS_MAX`: Maximum amount of items owned by a trainer. Changes the amount of comboboxes shown for items.
- - `PARTY_MAX`: Maximum number of party members. Changes the size of the party members list.
- - `NAME_MAX`: Maximum length of a trainer name. Allows for more longer text in the name field.
- - `MOVES_MAX` Maximum number of moves a party member can have. Changes the amount of comboboxes shown for moves.
-
-Even though the editor is dynamic, it's only so to an extent. Here's what the editor will recognize:
- - Addition or removal of Pokémon (works with Egg's branches)
- - Addition or removal of items (works with Egg's branches)
- - Addition or removal of moves (works with Egg's branches)
- - Addition or removal of trainer pics
- - Addition or removal of trainer music
- - Addition or removal of trainer classes
- - Addition or removal of AI flags
-
-The problem comes when we look at trainer and party structures, which are hard coded as of now and will only recognise the following fields (use CTRL + F to find if a field is recognised):
- - Trainers: "partyFlags", "trainerClass", "encounterMusic_gender", "trainerPic", "trainerName",  
-  "items", "doubleBattle", "aiFlags", "partySize", "party"
-  - Parties: "iv", "lvl", "species", "heldItem", "moves"
-
-Adding new fields won't result in an error, but saving will ignore them and will only store the default values. 
+ - Nature
+ - Pokeball
+ - Shiny
+ - Ability: Only abilities that the pokemon can have are valid. (i.e. Setting intimidate on pikachu wont work)
+ - Friendship
