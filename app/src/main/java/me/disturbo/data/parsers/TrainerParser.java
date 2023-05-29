@@ -13,7 +13,7 @@ public class TrainerParser implements IndexedLineParser<Trainer> {
         try{
             rawTrainer = rawTrainer.replace("};", "");
             rawTrainer = rawTrainer.replaceAll(System.lineSeparator(), "");
-            rawTrainer = rawTrainer.replaceAll("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)", "");
+            rawTrainer = rawTrainer.replaceAll("\\s+", "");
             rawTrainer = rawTrainer.substring(("[" + name + "]={.").length(), rawTrainer.length() - 3);
 
             String[] trainer = rawTrainer.split(",\\.");
