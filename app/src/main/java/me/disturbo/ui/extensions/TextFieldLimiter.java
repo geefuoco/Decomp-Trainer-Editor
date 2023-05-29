@@ -30,9 +30,11 @@ public class TextFieldLimiter extends PlainDocument {
             sb.append(getText(0, getLength()));
             sb.insert(offset, str);
 
-            if ((sb.toString().length() <= maxLength || maxLength < 0)
-                    && (maxValue < 0 || (Utils.isNumeric(sb.toString()) && Integer.parseInt(sb.toString()) < maxValue)))
+            if ((sb.toString().length() <= maxLength || maxLength < 0) 
+                && (maxValue < 0 || (Utils.isNumeric(sb.toString()) 
+                && Integer.parseInt(sb.toString()) < maxValue))){
                 super.insertString(offset, str, attr);
+            }
         }
         catch (BadLocationException exception) {
             exception.printStackTrace();
