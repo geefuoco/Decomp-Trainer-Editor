@@ -100,7 +100,7 @@ public class PartyMember {
         } 
         partyMemberStruct.addLvl(level);
         partyMemberStruct.addSpecies(species);
-        if(heldItem != MainActivity.items.get(0) || heldItem != null){
+        if(heldItem != null){
             partyMemberStruct.addHeldItem(heldItem);
         }
         if(moves != null){
