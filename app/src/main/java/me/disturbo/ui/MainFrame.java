@@ -59,6 +59,7 @@ public class MainFrame extends JFrame {
         MainActivity.trainerClasses = DataManager.loadTrainerClasses();
         MainActivity.items = DataManager.loadItems();
         MainActivity.natures = DataManager.loadNatures();
+        MainActivity.abilities = DataManager.loadAbilities();
         MainActivity.moves = DataManager.loadMoves();
         MainActivity.species = DataManager.loadSpecies();
         MainActivity.music = DataManager.loadMusic();

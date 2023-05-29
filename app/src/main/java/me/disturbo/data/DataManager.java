@@ -36,6 +36,13 @@ public class DataManager {
                                             .append(File.separator)
                                             .toString();
 
+    private static final File abilities = new File(
+        new StringBuilder()
+            .append(include_constants)
+            .append("abilities.h")
+            .toString()
+    );
+
     private static final File natures = new File(
         new StringBuilder()
             .append(include_constants)
@@ -172,6 +179,10 @@ public class DataManager {
             .toString()
     );
 
+    public static final LinkedList<String> loadAbilities() {
+        return (new AbilityParser()).parse(abilities, new LinkedList<>());
+    }
+    
     public static final LinkedList<String> loadNatures() {
         return (new NatureParser()).parse(natures, new LinkedList<>());
     }
