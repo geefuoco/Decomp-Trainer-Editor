@@ -29,6 +29,7 @@ public class PartyMemberPanel extends JPanel {
     private ComboBoxFiltered heldItem;
     private ComboBoxFiltered balls;
     private ComboBoxFiltered natures;
+    private ComboBoxFiltered abilities;
     private MovesPanel movesPanel;
     private ValuePanel ivPanel;
     private ValuePanel evPanel;
@@ -60,16 +61,40 @@ public class PartyMemberPanel extends JPanel {
 
         JPanel lowerSection = new JPanel();
         lowerSection.setBackground(Color.WHITE);
-        lowerSection.setLayout(new GridLayout(2, 2));
+        lowerSection.setLayout(new GridLayout(3, 2));
 
-        createShiny(lowerSection);
         createFriendship(lowerSection);
         createBall(lowerSection);
         createNature(lowerSection);
+        createAbilities(lowerSection);
+        createShiny(lowerSection);
 
         add(general);
         add(section);
         add(lowerSection);
+    }
+
+    private final void createAbilities(JPanel panel) {
+        JPanel abilityPanel = new JPanel();
+        abilityPanel.setBackground(Color.WHITE);
+        abilityPanel.setLayout(new GridLayout(2, 1, 4, 4));
+
+        JLabel itemLabel = new JLabel("Ability: ");
+        itemLabel.setHorizontalAlignment(JLabel.LEFT);
+        itemLabel.setBackground(Color.WHITE);
+        abilityPanel.add(itemLabel);
+
+        MainActivity.abilities.add(0, "NONE");
+
+        abilities = new ComboBoxFiltered(
+                MainActivity.abilities,
+                MainActivity.abilities.get(0),
+                new AlphanumericUnderscoreFilter());
+        abilities.setPrototypeDisplayValue(
+                Utils.getLongestString(MainActivity.abilities.toArray(new String[0])));
+
+        abilityPanel.add(abilities);
+        panel.add(abilityPanel);
     }
 
     private final void createPicPanel(JPanel panel) {
@@ -314,6 +339,9 @@ public class PartyMemberPanel extends JPanel {
         }
         if(!(natures.getSelectedItem().toString() == "NONE")){
             member.nature = natures.getSelectedItem().toString();
+        }
+        if(!(abilities.getSelectedItem().toString() == "NONE")){
+            member.ability = abilities.getSelectedItem().toString();
         }
 
         LinkedList<String> keys = new LinkedList<>(MainActivity.moves.keySet());
