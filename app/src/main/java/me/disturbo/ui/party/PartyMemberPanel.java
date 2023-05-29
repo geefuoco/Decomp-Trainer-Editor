@@ -24,6 +24,7 @@ public class PartyMemberPanel extends JPanel {
     private final MainFrame frame;
 
     private JTextField level;
+    private JTextField friendship;
     private ComboBoxFiltered species;
     private ComboBoxFiltered heldItem;
     private ComboBoxFiltered balls;
@@ -62,6 +63,7 @@ public class PartyMemberPanel extends JPanel {
         lowerSection.setLayout(new GridLayout(2, 2));
 
         createShiny(lowerSection);
+        createFriendship(lowerSection);
         createBall(lowerSection);
         createNature(lowerSection);
 
@@ -101,8 +103,25 @@ public class PartyMemberPanel extends JPanel {
         panel.add(levelPanel);
     }
 
+    private final void createFriendship(JPanel panel) {
+        JPanel friendshipPanel = new JPanel();
+        friendshipPanel.setBackground(Color.WHITE);
+        friendshipPanel.setLayout(new GridLayout(2, 1, 4, 4));
+
+        JLabel friendshipLabel = new JLabel("Friendship: ");
+        friendshipLabel.setHorizontalAlignment(JLabel.LEFT);
+        friendshipPanel.add(friendshipLabel);
+
+        friendship = new JTextField();
+        friendship.setDocument(new TextFieldLimiter(-1, 256));
+        friendshipPanel.add(friendship);
+
+        panel.add(friendshipPanel);
+    }
+
     private final void createShiny(JPanel panel) {
         JPanel shinyPanel = new JPanel();
+        shinyPanel.setLayout(new GridLayout(2, 1, 4, 4));
         shinyPanel.setBackground(Color.WHITE);
         JLabel shinyLabel = new JLabel("Shiny: ");
         shinyLabel.setHorizontalAlignment(JLabel.LEFT);
@@ -283,6 +302,9 @@ public class PartyMemberPanel extends JPanel {
         }
         member.level = level.getText();
         member.species = species.getSelectedItem().toString();
+        if(!(friendship.getText() == null || friendship.getText() == "")) {
+            member.friendship = friendship.getText();
+        }
         if(!(heldItem.getSelectedItem().toString() == "NONE")){
             member.heldItem = heldItem.getSelectedItem().toString();
         }
