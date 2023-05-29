@@ -58,6 +58,7 @@ public class MainFrame extends JFrame {
         MainActivity.partyIndexes = DataManager.indexParties();
         MainActivity.trainerClasses = DataManager.loadTrainerClasses();
         MainActivity.items = DataManager.loadItems();
+        MainActivity.natures = DataManager.loadNatures();
         MainActivity.moves = DataManager.loadMoves();
         MainActivity.species = DataManager.loadSpecies();
         MainActivity.music = DataManager.loadMusic();
