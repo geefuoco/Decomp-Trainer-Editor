@@ -22,13 +22,12 @@ public class Party extends LinkedList<PartyMember> {
     }
 
     final String buildPartyName() {
-        return "EVERYTHING_CUSTOMIZED" + "(" + this.name + ")";
+        return "TRAINER_PARTY" + "(" + this.name + ")";
     }
 
     public final String getPartyType() {
-        // Every trainer can be labeled under TrainerMonCustomized and still exibit the
-        // same behavior
-        return "TrainerMonCustomized";
+        // Party type has been changed to only 'TrainerMon'
+        return "TrainerMon";
     }
 
     public final String getPartyFlags() {
