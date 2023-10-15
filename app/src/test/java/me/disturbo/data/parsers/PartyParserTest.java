@@ -15,7 +15,7 @@ public class PartyParserTest {
     public void runTest() {
 
         String rawParty = new StringBuilder()
-                .append("static const struct TrainerMonCustomized sParty_Sawyer1[] = {")
+                .append("static const struct TrainerMon sParty_Sawyer1[] = {")
                 .append(System.lineSeparator())
                 .append("    {")
                 .append(System.lineSeparator())

@@ -12,13 +12,7 @@ public class PartyParser implements IndexedLineParser<Party> {
     private final int END_OFFSET = 3;
 
     protected ArrayList<HashMap<String, String>> parseIntoMap(String name, String rawParty) {
-        String partyType;
-        if (rawParty.contains("Customized")) {
-            partyType = "TrainerMonCustomized";
-        } else {
-            partyType = rawParty.substring(rawParty.indexOf("TrainerMon"),
-                    rawParty.indexOf("Moves") + "Moves".length());
-        }
+        String partyType = "TrainerMon";
         String partyDeclaration = "staticconststruct" + partyType + name + "[]={{";
         rawParty = rawParty.replaceAll(System.lineSeparator(), "").replaceAll("\\s+", "");
         rawParty = rawParty.substring(partyDeclaration.length(), rawParty.length() - END_OFFSET);
